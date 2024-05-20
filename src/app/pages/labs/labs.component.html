@@ -1,0 +1,35 @@
+<div class="container">
+  <p>labs works!</p>
+  <h2>{{ welcome }}</h2>
+  <ul>
+    <li *ngFor="let usuario of usuarios">
+      {{usuario}}
+    </li>
+  </ul>
+  <hr/>
+  {{ "Hola".repeat(5) }}
+  <p>La suma de 3 + 3 es {{ 3 + 3}}</p>
+  <p>Hola soy {{nombre()}} y tengo {{edad}} </p>
+  <hr/>
+  <img height="300" [src]="persona.foto" alt="imagen">
+  <input type="text" [value]="nombre()">
+  <input type="number" [value]="persona.edad">
+  <button [disabled]="disabled">Click Me</button>
+  <p>persona : {{ persona.nombre }}</p>
+  <hr/>
+  <button (click)="clickHandler()">Click Me</button>
+  <button (dblclick)="clickHandler()">Double Click Me</button>
+  <p>(change)</p>
+  <input type="number" [value]="persona.edad" (change)="changeHandler($event)">
+  <p>(keydown)</p>
+  <input type="text" [value]="persona.nombre" (keydown)="keydownHandler($event)">
+  <p>(keydown + shift)</p>
+  <input type="text" [value]="persona.nombre" (keydown.enter)="clickHandler()">
+  <hr />
+  <h1>Signals</h1>
+  <input type="text" [value]="nombre()" (change)="changeHandler($event)">
+</div>
+
+
+
+

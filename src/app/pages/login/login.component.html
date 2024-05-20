@@ -1,0 +1,21 @@
+<p-card header="LogOn">
+  <div class="field">
+    <label for="email">Email</label>
+    <input id="email" type="text" placeholder="usuario@undominio.com" [(ngModel)]="loginU.email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+  </div>
+  <div class="field">
+    <label for="password">Password</label>
+    <input id="password" type="password" placeholder="********" [(ngModel)]="loginU.password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+  </div>
+  <div class="pt-5">
+    <p-button label="LogIn" (onClick)="getToken()"></p-button>
+    <p-button class="pl-5" label="Sing Up" severity="secondary"/>
+  </div>
+  <div class="py-3">
+    <p-button label="Forgot Password" [link]="true"/>
+  </div>
+</p-card>
+
+
+
+
