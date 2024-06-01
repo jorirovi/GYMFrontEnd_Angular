@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Usuario } from '../Models/usuario.model';
 import { gymUsuarios } from '../Models/gymUsuarios.model';
+import { LoginModel } from '../Models/login.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +21,7 @@ export class UsuariosService {
     return this.http.get<gymUsuarios>(`${this.urlAPI}/${id}`)
   }
 
-  cambioPassword(email: string, password: string){
-    return this.http.put<gymUsuarios>(`${this.urlAPI}/${email}/${password}`,{})
+  cambioPassword(entity: LoginModel){
+    return this.http.put<gymUsuarios>(`${this.urlAPI}/pass`,entity,{})
   }
 }

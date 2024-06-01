@@ -30,6 +30,10 @@ export class LoginComponent {
     email: '',
     token: ''
   };
+  entity: LoginModel = {
+    email: '',
+    password: ''
+  }
   email: string = '';
   pass: string = '';
   errorMessage: string | null = null;
@@ -53,8 +57,8 @@ export class LoginComponent {
   showDialog() {
     this.visible = true;
   }
-  changePass(email: string, pass: string){
-    this._usurioService.cambioPassword(email, pass).subscribe({
+  changePass(entity: LoginModel){
+    this._usurioService.cambioPassword(entity).subscribe({
       next: (usuario) => {
         console.log(usuario)
         this.visible = false
