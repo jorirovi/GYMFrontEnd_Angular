@@ -3,18 +3,20 @@
       <ng-template pTemplate="header">
           <tr>
               <th>Id</th>
-              <th>Name</th>
-              <th>Role</th>
+              <th>Nombre</th>
+              <th>Apellidos</th>
               <th>Email</th>
-              <th>Check User</th>
+              <th>Password</th>
+              <th>Check Usuario</th>
           </tr>
       </ng-template>
       <ng-template pTemplate="body" let-usuario>
           <tr>
               <td>{{ usuario.id }}</td>
-              <td>{{ usuario.name }}</td>
-              <td>{{ usuario.role }}</td>
+              <td>{{ usuario.nombre}}</td>
+              <td>{{ usuario.apellidos}}</td>
               <td>{{ usuario.email }}</td>
+              <td>{{ usuario.password }}</td>
               <td>
                 <button
                     type="button"
@@ -32,7 +34,7 @@
     <span class="p-text-secondary block mb-5">Update your information.</span>
     <div class="flex align-items-center gap-3 mb-3">
         <label for="username" class="font-semibold w-6rem">Username</label>
-        <input pInputText id="username" class="flex-auto" autocomplete="off" [(ngModel)]="usuarioDetail.name" disabled="true"/>
+        <input pInputText id="username" class="flex-auto" autocomplete="off" [(ngModel)]="usuarioDetail.nombre" disabled="true"/>
     </div>
     <div class="flex align-items-center gap-3 mb-5">
         <label for="email" class="font-semibold w-6rem">Email</label>

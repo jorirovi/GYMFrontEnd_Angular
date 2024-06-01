@@ -6,18 +6,21 @@ import { LoginService } from '../../Services/login.service';
 import { FormsModule } from '@angular/forms';
 import { LoginModel } from '../../Models/login.model';
 import { AuthModel } from '../../Models/auth.model';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { DialogModule } from 'primeng/dialog';
+import { UsuariosService } from '../../Services/usuarios.service';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule, FormsModule],
+  imports: [CommonModule, CardModule, ButtonModule, FormsModule, DialogModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   loginService = inject(LoginService);
+  _usurioService = inject(UsuariosService)
   loginU: LoginModel = {
     email : '',
     password: ''
@@ -26,8 +29,11 @@ export class LoginComponent {
     idU: '',
     email: '',
     token: ''
-  }
+  };
+  email: string = '';
+  pass: string = '';
   errorMessage: string | null = null;
+  visible: boolean = false;
 
   constructor(private _route: Router){}
 
@@ -44,4 +50,20 @@ export class LoginComponent {
       }
     });
   };
+  showDialog() {
+    this.visible = true;
+  }
+  changePass(email: string, pass: string){
+    this._usurioService.cambioPassword(email, pass).subscribe({
+      next: (usuario) => {
+        console.log(usuario)
+        this.visible = false
+        alert('Password cambiado con exito')
+      },
+      error: (error) => {
+        this.errorMessage = error;
+        alert(this.errorMessage)
+      }
+    });
+  }
 }

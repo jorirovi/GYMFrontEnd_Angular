@@ -7,6 +7,7 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { gymUsuarios } from '../../Models/gymUsuarios.model';
 
 
 @Component({
@@ -24,14 +25,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class UsuariosComponent {
 
-  usuarios = signal<Usuario[]>([]);
-  usuarioDetail: Usuario = {
-    id: 0,
-    name: '',
+  usuarios = signal<gymUsuarios[]>([]);
+  usuarioDetail: gymUsuarios = {
+    id: '',
+    nombre: '',
+    apellidos: '',
     email: '',
-    role: '',
-    password: '',
-    avatar: ''
+    password: ''
   }
   private usuarioService = inject(UsuariosService);
   showUserVisible: boolean = false;
@@ -49,13 +49,12 @@ export class UsuariosComponent {
   getIdUser(idU: number){
     this.usuarioService.getUsuariosByID(idU).subscribe({
       next: (usuarioD) => {
-        this.usuarioDetail = usuarioD
-        this.showUserVisible = true
+        this.usuarioDetail = usuarioD;
         },
         error: () => {
         },
       });
-
+      this.showDialog();
   }
 
   showDialog(){
