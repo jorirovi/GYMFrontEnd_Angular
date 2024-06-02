@@ -1,22 +1,57 @@
 <p-card header="LogOn">
   <div class="field">
     <label for="email">Email</label>
-    <input id="email" type="text" placeholder="usuario@undominio.com" [(ngModel)]="loginU.email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+    <p-inputGroup>
+      <p-inputGroupAddon>
+          <i class="pi pi-envelope"></i>
+      </p-inputGroupAddon>
+      <input id="email" type="text" placeholder="usuario@undominio.com" [(ngModel)]="loginU.email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+  </p-inputGroup>
   </div>
   <div class="field">
     <label for="password">Password</label>
-    <input id="password" type="password" placeholder="********" [(ngModel)]="loginU.password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+    <p-inputGroup>
+      <p-inputGroupAddon>
+          <i class="pi pi-key"></i>
+      </p-inputGroupAddon>
+      <input id="password" type="password" placeholder="********" [(ngModel)]="loginU.password" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full">
+  </p-inputGroup>
   </div>
   <div class="pt-5">
-    <p-button label="LogIn" (onClick)="getToken()"></p-button>
-    <p-button class="pl-5" label="Sing Up" severity="secondary"/>
+    <p-button label="LogIn" (onClick)="getToken()" [raised]="true"></p-button>
+    <p-button class="pl-3" label="Sing Up" severity="success" [raised]="true" (onClick)="showDialogSU()"/>
   </div>
   <div class="py-3">
-    <p-button label="Forgot Password" [link]="true" (onClick)="showDialog()"/>
+    <p-button label="Forgot Password" [link]="true" (onClick)="showDialogCP()"/>
   </div>
 </p-card>
 <div class="card flex justify-content-center">
-  <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+  <p-dialog header="Add Profile" [modal]="true" [(visible)]="visibleSU" [style]="{ width: '25rem' }">
+      <span class="p-text-secondary block mb-5">Information</span>
+      <div class="flex align-items-center gap-3 mb-3">
+        <label for="nombre" class="font-semibold w-6rem">Nombre</label>
+        <input pInputText id="nombre" class="flex-auto" autocomplete="off" [(ngModel)]="nuevoUsuario.nombre" />
+      </div>
+      <div class="flex align-items-center gap-3 mb-3">
+        <label for="apellidos" class="font-semibold w-6rem">Appellidos</label>
+        <input pInputText id="apellidos" class="flex-auto" autocomplete="off" [(ngModel)]="nuevoUsuario.apellidos" />
+      </div>
+      <div class="flex align-items-center gap-3 mb-3">
+          <label for="email" class="font-semibold w-6rem">Email</label>
+          <input pInputText id="email" class="flex-auto" autocomplete="off" [(ngModel)]="nuevoUsuario.email" />
+      </div>
+      <div class="flex align-items-center gap-3 mb-5">
+          <label for="password" class="font-semibold w-6rem">Password</label>
+          <input pInputText id="password" class="flex-auto" autocomplete="off" type="password" [(ngModel)]="nuevoUsuario.password"/>
+      </div>
+      <div class="flex justify-content-end gap-2">
+          <p-button label="Cancel" severity="secondary" (onClick)="showDialogSU()" />
+          <p-button label="Add" (onClick)="newUser(nuevoUsuario)" />
+      </div>
+  </p-dialog>
+</div>
+<div class="card flex justify-content-center">
+  <p-dialog header="Edit Profile" [modal]="true" [(visible)]="visibleFP" [style]="{ width: '25rem' }">
       <span class="p-text-secondary block mb-5">Cambio de Password</span>
       <div class="flex align-items-center gap-3 mb-3">
           <label for="username" class="font-semibold w-6rem">Email</label>
@@ -27,7 +62,7 @@
           <input pInputText id="email" class="flex-auto" autocomplete="off" type="password" [(ngModel)]="entity.password"/>
       </div>
       <div class="flex justify-content-end gap-2">
-          <p-button label="Cancel" severity="secondary" (click)="visible = false" />
+          <p-button label="Cancel" severity="secondary" (onClick)="showDialogCP()" />
           <p-button label="Cambiar Password" (onClick)="changePass(entity)" />
       </div>
   </p-dialog>

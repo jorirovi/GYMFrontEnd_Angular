@@ -9,12 +9,25 @@ import { AuthModel } from '../../Models/auth.model';
 import { Router } from '@angular/router';
 import { DialogModule } from 'primeng/dialog';
 import { UsuariosService } from '../../Services/usuarios.service';
+import { InputTextModule } from 'primeng/inputtext';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { gymUsuarios } from '../../Models/gymUsuarios.model';
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, CardModule, ButtonModule, FormsModule, DialogModule],
+  imports: [
+    CommonModule,
+    CardModule,
+    ButtonModule,
+    FormsModule,
+    DialogModule,
+    InputTextModule,
+    InputGroupModule,
+    InputGroupAddonModule
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -34,10 +47,18 @@ export class LoginComponent {
     email: '',
     password: ''
   }
+  nuevoUsuario: gymUsuarios = {
+    id: '',
+    nombre: '',
+    apellidos: '',
+    email: '',
+    password: ''
+  }
   email: string = '';
   pass: string = '';
   errorMessage: string | null = null;
-  visible: boolean = false;
+  visibleFP: boolean = false;
+  visibleSU: boolean = false;
 
   constructor(private _route: Router){}
 
@@ -54,18 +75,38 @@ export class LoginComponent {
       }
     });
   };
-  showDialog() {
-    this.visible = true;
+
+  showDialogCP(){
+    this.visibleFP = !this.visibleFP
   }
+
+  showDialogSU(){
+    this.visibleSU = !this.visibleSU
+  }
+
   changePass(entity: LoginModel){
     this._usurioService.cambioPassword(entity).subscribe({
       next: (usuario) => {
         console.log(usuario)
-        this.visible = false
+        this.showDialogCP()
         alert('Password cambiado con exito')
       },
       error: (error) => {
         this.errorMessage = error;
+        alert(this.errorMessage)
+      }
+    });
+  }
+
+  newUser(nuevoUsuario: gymUsuarios){
+    this._usurioService.createUser(nuevoUsuario).subscribe({
+      next: (usuario) => {
+        console.log(usuario)
+        this.showDialogSU()
+        alert("Usuario creado con exito!")
+      },
+      error: (error) => {
+        this.errorMessage = error
         alert(this.errorMessage)
       }
     });
