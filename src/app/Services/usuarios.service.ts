@@ -11,11 +11,13 @@ export class UsuariosService {
 
   private http = inject(HttpClient);
   private _token = inject(TokenService)
-  urlAPI = 'https://localhost:7206/api/Usuarios';
+  urlAPI = 'https://localhost:7206/api/UsuarioA';
   constructor() { }
 
   getUsuarios(){
-    return this.http.get<gymUsuarios[]>(this.urlAPI)
+    return this.http.get<gymUsuarios[]>(this.urlAPI,{
+      headers: {Authorization: `Bearer ${this._token.getToken()}`}
+    })
   }
 
   getUsuariosByID(id: number){
