@@ -20,8 +20,10 @@ export class UsuariosService {
     })
   }
 
-  getUsuariosByID(id: number){
-    return this.http.get<gymUsuarios>(`${this.urlAPI}/${id}`)
+  getUsuariosByID(id: string){
+    return this.http.get<gymUsuarios>(`${this.urlAPI}/${id}`,{
+      headers: {Authorization: `Bearer ${this._token.getToken()}`}
+    })
   }
 
   cambioPassword(entity: LoginModel){

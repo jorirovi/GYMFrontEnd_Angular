@@ -46,7 +46,7 @@ export class UsuariosComponent {
     })
   }
 
-  getIdUser(idU: number){
+  getIdUser(idU: string){
     this.usuarioService.getUsuariosByID(idU).subscribe({
       next: (usuarioD) => {
         this.usuarioDetail = usuarioD;
