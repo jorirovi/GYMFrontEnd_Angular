@@ -19,7 +19,7 @@ export class LoginService {
     return this.http.post<AuthModel>(this.apiURL, login)
     .pipe(
       tap(
-        response => this._tokenService.saveToken(response.token)
+        response => this._tokenService.saveToken(response.token, response.idU)
       ));
   }
 }

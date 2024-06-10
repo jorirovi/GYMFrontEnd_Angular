@@ -12,6 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideHttpClient(),
     provideAnimations(),
-    provideNoopAnimations()
+    provideNoopAnimations(),
   ],
 };
