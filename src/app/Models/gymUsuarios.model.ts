@@ -5,3 +5,5 @@ export interface gymUsuarios{
   email: string;
   password: string;
 }
+
+export type gymUsuarioDTO = Omit<gymUsuarios, 'password'>;

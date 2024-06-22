@@ -13,7 +13,7 @@ export class LoginService {
   constructor() { }
   _tokenService = inject(TokenService)
   private http = inject(HttpClient)
-  private apiURL = 'https://localhost:7206/api/Auth'
+  private apiURL = 'https://gymappjr.azurewebsites.net/api/Auth'
 
   getAuth(login: LoginModel){
     return this.http.post<AuthModel>(this.apiURL, login)

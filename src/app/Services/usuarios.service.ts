@@ -11,7 +11,7 @@ export class UsuariosService {
 
   private http = inject(HttpClient);
   private _token = inject(TokenService)
-  urlAPI = 'https://localhost:7206/api/UsuarioA';
+  urlAPI = 'https://gymappjr.azurewebsites.net/api/UsuarioA';
   constructor() { }
 
   getUsuarios(){
