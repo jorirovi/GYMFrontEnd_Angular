@@ -1,15 +1,25 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { PerfilDTO } from '../../../../Models/perfil.model';
-import { FormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
+import { gymUsuarios } from '../../../../Models/gymUsuarios.model';
+import { CommonModule } from '@angular/common';
 //PrimeNG
-import { TableModule } from 'primeng/table';
+import { CardModule } from 'primeng/card';
+import { InputTextModule } from 'primeng/inputtext';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { ButtonModule } from 'primeng/button';
+
 
 @Component({
   selector: 'app-listperfil',
   standalone: true,
   imports: [
-    TableModule,
-    FormsModule
+    FormsModule,
+    CardModule,
+    InputTextModule,
+    FloatLabelModule,
+    CommonModule,
+    ButtonModule
   ],
   templateUrl: './listperfil.component.html',
   styleUrl: './listperfil.component.css',
@@ -28,6 +38,15 @@ export class ListperfilComponent {
       email: ''
     }
   };
+  @Input() usuarioGYM: gymUsuarios = {
+    id: '',
+    nombre: '',
+    apellidos: '',
+    email: '',
+    password: ''
+  }
+
+  @Input() cambioBoton: boolean | undefined;
 }
 
 

@@ -1,36 +1,118 @@
-<div class="field grid">
-  <label for="nombre" class="col-fixed" style="width:100px">Nombre</label>
-  <div class="col">
-      <input id="nombre" type="text" [(ngModel)]="perfilU.datosUsuario.nombre" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+<p-card header="Perfil de: {{usuarioGYM.nombre}}">
+  <div class="field grid">
+    <label for="nombre" class="col-fixed" style="width: 100px;">Nombre</label>
+    <div class="col">
+        <p-floatLabel>
+          <div *ngIf="usuarioGYM.nombre !== ''; else elseBlock">
+            <input pInputText id="nombre" type="text" [(ngModel)]="usuarioGYM.nombre" [disabled]="true"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+          </div>
+          <ng-template #elseBlock>
+            <input pInputText id="nombre" type="text" [(ngModel)]="usuarioGYM.nombre" [disabled]="true"
+              class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary ng-invalid ng-dirty">
+          </ng-template>
+        </p-floatLabel>
+    </div>
   </div>
-</div>
-<div class="field grid">
-  <label for="apellido" class="col-fixed" style="width:100px">Apellidos</label>
-  <div class="col">
-      <input id="apellido" type="text" [(ngModel)]="perfilU.datosUsuario.apellidos" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+  <div class="field grid">
+    <label for="apellido" class="col-fixed" style="width:100px">Apellidos</label>
+    <div class="col">
+      <p-floatLabel>
+        <div *ngIf="usuarioGYM.apellidos !== ''; else elseBlock">
+          <input pInputText id="apellido" type="text" [(ngModel)]="usuarioGYM.apellidos" [disabled]="true"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+        </div>
+        <ng-template #elseBlock>
+          <input pInputText id="apellido" type="text" [(ngModel)]="usuarioGYM.apellidos" [disabled]="true"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary ng-invalid ng-dirty">
+        </ng-template>
+      </p-floatLabel>
+    </div>
   </div>
-</div>
-<div class="field grid">
-  <label for="email" class="col-fixed" style="width:100px">Email</label>
-  <div class="col">
-      <input id="email" type="text" [(ngModel)]="perfilU.datosUsuario.email" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+  <div class="grid">
+    <label for="email" class="col-fixed" style="width:100px">Email</label>
+    <div class="col">
+      <p-floatLabel>
+        <div *ngIf="usuarioGYM.email !== ''; else elseBlock">
+          <input pInputText id="email" type="text" [(ngModel)]="usuarioGYM.email" [disabled]="true"
+            class="text-base text-color surface-overlay p-2 border-1 w-4 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+        </div>
+        <ng-template #elseBlock>
+          <input pInputText id="email" type="text" [(ngModel)]="usuarioGYM.nombre" [disabled]="true"
+            class="text-base text-color surface-overlay p-2 border-1 w-4 border-solid surface-border border-round appearance-none outline-none focus:border-primary ng-invalid ng-dirty">
+        </ng-template>
+      </p-floatLabel>
+    </div>
   </div>
-</div>
-<div class="field grid">
-  <label for="sexo" class="col-fixed" style="width:100px">Sexo</label>
-  <div class="col">
-      <input id="sexo" type="text" [(ngModel)]="perfilU.sexo" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+  <div class="field grid">
+    <label for="sexo" class="col-fixed" style="width:100px">Sexo</label>
+    <div class="col">
+      <p-floatLabel>
+        <div *ngIf="perfilU.sexo !== ''; else elseBlockSexo">
+          <input pInputText id="sexo" type="text" [(ngModel)]="perfilU.sexo" [disabled]="true"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+        </div>
+      </p-floatLabel>
+      <p-floatLabel>
+        <ng-template #elseBlockSexo>
+          <input pInputText id="sexo" type="text" [(ngModel)]="perfilU.sexo" [disabled]="true" aria-describedby="sexo-help"
+            class="ng-invalid ng-dirty p-2"
+            >
+            <div>
+              <small id="sexo-help">
+                {{usuarioGYM.nombre}} debes actualizar tu perfil con la inofrmacion de este campo.
+              </small>
+            </div>
+        </ng-template>
+      </p-floatLabel>
+    </div>
   </div>
-</div>
-<div class="field grid">
-  <label for="edad" class="col-fixed" style="width:100px">Edad</label>
-  <div class="col">
-      <input id="edad" type="number" [(ngModel)]="perfilU.edad" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+  <div class="field grid">
+    <label for="edad" class="col-fixed" style="width:100px">Edad</label>
+    <div class="col">
+      <p-floatLabel>
+        <div *ngIf="perfilU.edad !== 0; else elseBlockEdad">
+          <input pInputText id="edad" type="number" [(ngModel)]="perfilU.edad" [disabled]="true" aria-describedby="edad-help"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+        </div>
+        <ng-template #elseBlockEdad>
+          <input pInputText id="edad" type="number" [(ngModel)]="perfilU.edad" [disabled]="true"
+            class="ng-invalid ng-dirty p-2"
+          >
+          <div>
+            <small id="edad-help">
+              {{usuarioGYM.nombre}} debes actualizar tu perfil con la inofrmacion de este campo.
+            </small>
+          </div>
+        </ng-template>
+      </p-floatLabel>
+    </div>
   </div>
-</div>
-<div class="field grid">
-  <label for="peso" class="col-fixed" style="width:100px">Peso</label>
-  <div class="col">
-      <input id="peso" type="number" [(ngModel)]="perfilU.peso" class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+  <div class="field grid">
+    <label for="peso" class="col-fixed" style="width:100px">Peso</label>
+    <div class="col">
+      <p-floatLabel>
+        <div *ngIf="perfilU.peso !== 0; else elseBlockPeso">
+          <input pInputText id="peso" type="number" [(ngModel)]="perfilU.peso" [disabled]="true" aria-describedby="peso-help"
+            class="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
+        </div>
+        <ng-template #elseBlockPeso>
+          <input pInputText id="peso" type="number" [(ngModel)]="perfilU.peso" [disabled]="true"
+            class="ng-invalid ng-dirty p-2">
+            <div>
+              <small id="peso-help">
+                {{usuarioGYM.nombre}} debes actualizar tu perfil con la inofrmacion de este campo.
+              </small>
+            </div>
+        </ng-template>
+      </p-floatLabel>
+    </div>
   </div>
-</div>
+  <div *ngIf="cambioBoton === true; else elseBlockBoton">
+    <p-button label="Modificar Perfil"></p-button>
+  </div>
+  <ng-template #elseBlockBoton>
+    <p-button label="Cargar Perfil"></p-button>
+  </ng-template>
+</p-card>
+
