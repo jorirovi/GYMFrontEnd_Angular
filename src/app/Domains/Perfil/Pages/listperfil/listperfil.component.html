@@ -1,3 +1,7 @@
+<!--
+  inicio del bloque html:
+  formulario principal: para observar los datos de Usuario y Perfil
+-->
 <p-card header="Perfil de: {{usuarioGYM.nombre}}">
   <div class="field grid">
     <label for="nombre" class="col-fixed" style="width: 100px;">Nombre</label>
@@ -108,11 +112,69 @@
       </p-floatLabel>
     </div>
   </div>
+  <!--Fin Formulario Principal: Perfil -->
+  <!--
+    Botones y levantamiento de modales
+  -->
+  <!--Modal para modificacion de perfil-->
   <div *ngIf="cambioBoton === true; else elseBlockBoton">
-    <p-button label="Modificar Perfil"></p-button>
+    <div class="py-5">
+      <p-button label="Modificar Perfil" (onClick)="handleDialog(perfilU.id)"></p-button>
+    </div>
+    <p-dialog header="Modificar Perfil" [modal]="true" [(visible)]="showDialog" [style]="{width: '35rem'}">
+      <span class="p-text-secondary block mb-5">Actualiza tu Información de Perfil.</span>
+    <div class="flex align-items-center gap-3 mb-3">
+        <label for="idPerfil" class="font-semibold w-6rem">Id. Perfil</label>
+        <input pInputText id="idPerfil" type="text" class="flex-auto" autocomplete="off" [(ngModel)]="perfilEntity.id" [disabled]="true"/>
+    </div>
+    <div class="flex align-items-center gap-3 mb-5">
+        <label for="idUsuario" class="font-semibold w-6rem">Id. Usuario</label>
+        <input pInputText id="email" type="text" class="flex-auto" autocomplete="off" [(ngModel)]="perfilEntity.idUsuario" [disabled]="true"/>
+    </div>
+    <div *ngIf="perfilEntity.edad !== 0; else elseBlockEdadM">
+      <div class="flex align-items-center gap-3 mb-5">
+        <label for="edad" class="font-semibold w-6rem">Edad</label>
+        <p-inputNumber inputId="minmax" mode="decimal" [(ngModel)]="perfilEntity.edad" id="edad" [min]="0" [max]="100"/>
+      </div>
+      <div class="flex justify-content-end gap-2">
+        <p-button label="Cancel" severity="secondary" (click)="showDialog = false" />
+        <p-button label="Save" (click)="showDialog = false" />
+    </div>
+    </div>
+    <ng-template #elseBlockEdadM>
+      <div class="flex align-items-center gap-3 mb-5">
+        <label for="edad" class="font-semibold w-6rem">Edad</label>
+        <p-inputNumber
+          inputId="minmax"
+          mode="decimal"
+          type="number"
+          [(ngModel)]="perfilEntity.edad"
+          id="edad"
+          [min]="0" [max]="100"
+          class="ng-invalid ng-dirty"
+          aria-describedby="EdadM-help"
+        />
+        <div>
+          <small id="EdadM-help">
+            {{usuarioGYM.nombre}} debes actualizar tu perfil con la inofrmacion de este campo.
+          </small>
+        </div>
+      </div>
+      <div class="flex justify-content-end gap-2">
+        <p-button label="Cancel" severity="secondary" (click)="showDialog = false"/>
+        <p-button label="Save" (click)="showDialog = false" [disabled]="true"/>
+    </div>
+    </ng-template>
+
+
+    </p-dialog>
   </div>
+  <!--modal para crear perfil-->
   <ng-template #elseBlockBoton>
-    <p-button label="Cargar Perfil"></p-button>
+    <p-button label="Crear Perfil" (onClick)="showDialog = true"></p-button>
+    <p-dialog header="Crear Perfil" [modal]="true" [(visible)]="showDialog" [style]="{width: '25rem'}">
+      <p>Hola aqui crearas el perfil</p>
+    </p-dialog>
   </ng-template>
 </p-card>
 

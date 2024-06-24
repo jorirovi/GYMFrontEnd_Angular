@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ListperfilComponent } from '../../Pages/listperfil/listperfil.component';
 import { PerfilService } from '../../../../Services/perfil.service';
-import { PerfilDTO } from '../../../../Models/perfil.model';
+import { Perfil, PerfilDTO } from '../../../../Models/perfil.model';
 import { TokenService } from '../../../../Services/token.service';
 import { gymUsuarios } from '../../../../Models/gymUsuarios.model';
 import { UsuariosService } from '../../../../Services/usuarios.service';
@@ -39,8 +39,15 @@ export class PerfilComponent {
     apellidos: '',
     email: '',
     password: ''
-  }
-  tSexo: TipoSexo[] = []
+  };
+  perfilO: Perfil = {
+    id: '',
+    idUsuario: '',
+    edad: 0,
+    peso: 0,
+    sexo: ''
+  };
+  tSexo: TipoSexo[] = [];
   cBoton = false;
 
   ngOnInit(){
@@ -68,5 +75,11 @@ export class PerfilComponent {
       }
     });
   };
-
+  obtenerPerfilO(idP: string){
+    this._perfilService.getPerfilSolobyID(idP).subscribe ({
+      next: (SoloPerfil) => {
+        this.perfilO = SoloPerfil
+      }
+    });
+  }
 }
