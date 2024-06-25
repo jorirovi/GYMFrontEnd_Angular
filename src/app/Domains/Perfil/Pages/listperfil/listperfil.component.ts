@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, output, signal } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
 import { Perfil, PerfilDTO } from '../../../../Models/perfil.model';
 import { FormsModule } from '@angular/forms';
 import { gymUsuarios } from '../../../../Models/gymUsuarios.model';
@@ -10,7 +10,12 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { ListboxModule } from 'primeng/listbox';
+import { TipoSexo } from '../../../../Models/tiposexo.model';
 
+interface sexo {
+  tipo: string
+}
 
 @Component({
   selector: 'app-listperfil',
@@ -23,12 +28,14 @@ import { InputNumberModule } from 'primeng/inputnumber';
     CommonModule,
     ButtonModule,
     DialogModule,
-    InputNumberModule
+    InputNumberModule,
+    ListboxModule
   ],
   templateUrl: './listperfil.component.html',
   styleUrl: './listperfil.component.css',
 })
 export class ListperfilComponent {
+  @ViewChildren('edadInput') edadInput!: ElementRef;
   @Input() perfilU: PerfilDTO = {
     id: '',
     edad: 0,
@@ -57,13 +64,28 @@ export class ListperfilComponent {
     sexo: ''
   };
   @Input() cambioBoton: boolean | undefined;
+  @Input() tipoSexo: TipoSexo[] = [];
   @Output() buscarPerfil = new EventEmitter();
   showDialog: boolean = false;
+  valorErrado: boolean = false;
+  kSex!: sexo[]
+  selectedSex!: sexo;
 
   handleDialog(idP: string){
-    console.log(idP)
     this.buscarPerfil.emit(idP)
     this.showDialog = !this.showDialog
+    this.kSex = [{tipo: 'Femenino'}, {tipo: 'Masculino'}]
+  }
+  handleBotonGuardar(){
+    if(this.selectedSex.tipo !== null){
+      this.perfilEntity.sexo = this.selectedSex.tipo;
+      console.log(this.perfilEntity);
+      this.showDialog = !this.showDialog;
+    }
+    else{
+      alert("Por favor debe seleccionar un tipo de sexo");
+    }
+
   }
 }
 
