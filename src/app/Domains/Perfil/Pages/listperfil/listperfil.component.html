@@ -123,83 +123,104 @@
     </div>
     <p-dialog header="Modificar Perfil" [modal]="true" [(visible)]="showDialog" [style]="{width: '35rem'}">
       <span class="p-text-secondary block mb-2">Actualiza tu Información de Perfil.</span>
-      <div class="flex align-items-center gap-3 mb-2">
-        <label for="idPerfil" class="font-semibold w-6rem">Id. Perfil</label>
-        <input pInputText id="idPerfil" type="text" class="flex-auto" autocomplete="off" [(ngModel)]="perfilEntity.id" [disabled]="true"/>
-      </div>
-      <div class="flex align-items-center gap-3 mb-2">
-        <label for="idUsuario" class="font-semibold w-6rem">Id. Usuario</label>
-        <input pInputText id="email" type="text" class="flex-auto" autocomplete="off" [(ngModel)]="perfilEntity.idUsuario" [disabled]="true"/>
-      </div>
-      <div *ngIf="perfilEntity.edad !== null; else elseBlockEdadM">
+      <form [formGroup]="formPerfilM" (ngSubmit)="handleBotonMGuardar($event)">
         <div class="flex align-items-center gap-3 mb-2">
-          <label for="edad" class="font-semibold w-6rem">Edad</label>
-          <p-inputNumber #edadInput inputId="minmax" mode="decimal" [(ngModel)]="perfilEntity.edad" id="edad"/>
+          <label for="edad">Edad</label><br>
+          <input pInputText inputId="minmax" mode="decimal" class="h-2rem" id="edad" type="number" formControlName="edad">
         </div>
-      </div>
-      <ng-template #elseBlockEdadM>
         <div class="flex align-items-center gap-3 mb-2">
-          <label for="edad" class="font-semibold w-6rem">Edad</label>
-          <p-inputNumber #edadInput
-            inputId="minmax"
-            mode="decimal"
-            [(ngModel)]="perfilEntity.edad"
-            id="edad"
-            [min]="1"
-            [max]="100"
-            class="ng-invalid ng-dirty"
-            aria-describedby="EdadM-help"
-          />
-          <div>
-            <small id="EdadM-help">
-              {{usuarioGYM.nombre}} debes actualizar tu perfil con la inofrmacion de este campo.
-            </small>
-          </div>
+          <label for="peso">Peso</label><br>
+          <input pInputText id="peso" type="number" formControlName="peso">
         </div>
-      </ng-template>
-      <div *ngIf="perfilEntity.peso !== null; else elseBlockPesoM">
         <div class="flex align-items-center gap-3 mb-2">
-          <label for="peso" class="font-semibold w-6rem">Peso</label>
-          <p-inputNumber inputId="minmaxfraction" mode="decimal" [(ngModel)]="perfilEntity.peso" id="peso" [minFractionDigits]="2" [maxFractionDigits]="3"/>
+          <label for="genero">Genero</label><br>
+          <input id="genero" type="radio" formControlName="sexo" value="femenino"> Femenino <br>
+          <input id="genero" type="radio" formControlName="sexo" value="masculino"> Masculino <br>
         </div>
-      </div>
-      <ng-template #elseBlockPesoM>
-        <div class="flex align-items-center gap-3 mb-2">
-          <label for="peso" class="font-semibold w-6rem">Peso</label>
-          <p-inputNumber
-            inputId="minmaxfraction"
-            mode="decimal"
-            [(ngModel)]="perfilEntity.peso"
-            id="peso"
-            min="0"
-            max="100"
-            [minFractionDigits]="2"
-            [maxFractionDigits]="3"
-            class="ng-invalid ng-dirty"
-            aria-describedby="PesoM-help"
-          />
-          <div>
-            <small id="PesoM-help">
-              {{usuarioGYM.nombre}} debes actualizar tu perfil con la inofrmacion de este campo.
-            </small>
-          </div>
+        <div>
+          <button type="submit" [disabled]="formPerfilM.invalid">Guardar</button>
         </div>
-      </ng-template>
-        <div class="flex align-items-center gap-3 mb-2">
-          <label for="sexo" class="font-semibold w-6rem">Tipo Sexo</label>
-          <p-listbox
-              [options]="kSex"
-              [(ngModel)]="selectedSex"
-              optionLabel="tipo"
-              [style]="{'width':'15rem'}"
-              [listStyle]="{'max-height': '220px'}" />
-        </div>
-        <div class="flex justify-content-end gap-3 mt-5">
-          <p-button label="Cancel" severity="secondary" (click)="showDialog = false"/>
-          <p-button label="Save" (click)="handleBotonGuardar()" [disabled]="false"/>
-        </div>
-    </p-dialog>
-  </div>
+      </form>
+      <!--
+              <div class="flex align-items-center gap-3 mb-2">
+                <label for="idPerfil" class="font-semibold w-6rem">Id. Perfil</label>
+                <input pInputText id="idPerfil" type="text" class="flex-auto" autocomplete="off" [(ngModel)]="perfilEntity.id" [disabled]="true"/>
+            </div>
+            <div class="flex align-items-center gap-3 mb-2">
+              <label for="idUsuario" class="font-semibold w-6rem">Id. Usuario</label>
+              <input pInputText id="email" type="text" class="flex-auto" autocomplete="off" [(ngModel)]="perfilEntity.idUsuario" [disabled]="true"/>
+            </div>
+            <div *ngIf="perfilEntity.edad !== null; else elseBlockEdadM">
+              <div class="flex align-items-center gap-3 mb-2">
+                <label for="edad" class="font-semibold w-6rem">Edad</label>
+                <p-inputNumber #edadInput inputId="minmax" mode="decimal" [(ngModel)]="perfilEntity.edad" id="edad"/>
+              </div>
+            </div>
+            <ng-template #elseBlockEdadM>
+              <div class="flex align-items-center gap-3 mb-2">
+                <label for="edad" class="font-semibold w-6rem">Edad</label>
+                <p-inputNumber #edadInput
+                  inputId="minmax"
+                  mode="decimal"
+                  [(ngModel)]="perfilEntity.edad"
+                  id="edad"
+                  [min]="1"
+                  [max]="100"
+                  class="ng-invalid ng-dirty"
+                  aria-describedby="EdadM-help"
+                />
+                <div>
+                  <small id="EdadM-help">
+                    {{usuarioGYM.nombre}} debes actualizar tu perfil con la inofrmacion de este campo.
+                  </small>
+                </div>
+              </div>
+            </ng-template>
+            <div *ngIf="perfilEntity.peso !== null; else elseBlockPesoM">
+              <div class="flex align-items-center gap-3 mb-2">
+                <label for="peso" class="font-semibold w-6rem">Peso</label>
+                <p-inputNumber inputId="minmaxfraction" mode="decimal" [(ngModel)]="perfilEntity.peso" id="peso" [minFractionDigits]="2" [maxFractionDigits]="3"/>
+              </div>
+            </div>
+            <ng-template #elseBlockPesoM>
+              <div class="flex align-items-center gap-3 mb-2">
+                <label for="peso" class="font-semibold w-6rem">Peso</label>
+                <p-inputNumber
+                  inputId="minmaxfraction"
+                  mode="decimal"
+                  [(ngModel)]="perfilEntity.peso"
+                  id="peso"
+                  min="0"
+                  max="100"
+                  [minFractionDigits]="2"
+                  [maxFractionDigits]="3"
+                  class="ng-invalid ng-dirty"
+                  aria-describedby="PesoM-help"
+                />
+                <div>
+                  <small id="PesoM-help">
+                    {{usuarioGYM.nombre}} debes actualizar tu perfil con la inofrmacion de este campo.
+                  </small>
+                </div>
+              </div>
+            </ng-template>
+              <div class="flex align-items-center gap-3 mb-2">
+                <label for="sexo" class="font-semibold w-6rem">Tipo Sexo</label>
+                <p-listbox
+                    [options]="kSex"
+                    [(ngModel)]="selectedSex"
+                    optionLabel="tipo"
+                    [style]="{'width':'15rem'}"
+                    [listStyle]="{'max-height': '220px'}" />
+              </div>
+              <div class="flex justify-content-end gap-3 mt-5">
+                <p-button label="Cancel" severity="secondary" (click)="showDialog = false"/>
+                <p-button label="Save" (click)="handleBotonGuardar()" [disabled]="false"/>
+              </div>
+            -->
+      </p-dialog>
+    </div>
+
   <!--modal para crear perfil-->
   <ng-template #elseBlockBoton>
     <p-button label="Crear Perfil" (onClick)="showDialog = true"></p-button>

@@ -1,6 +1,6 @@
-import { Component, ElementRef, EventEmitter, Input, Output, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChildren, inject } from '@angular/core';
 import { Perfil, PerfilDTO } from '../../../../Models/perfil.model';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { gymUsuarios } from '../../../../Models/gymUsuarios.model';
 import { CommonModule } from '@angular/common';
 //PrimeNG
@@ -29,13 +29,18 @@ interface sexo {
     ButtonModule,
     DialogModule,
     InputNumberModule,
-    ListboxModule
+    ListboxModule,
+    ReactiveFormsModule
   ],
   templateUrl: './listperfil.component.html',
   styleUrl: './listperfil.component.css',
 })
 export class ListperfilComponent {
-  @ViewChildren('edadInput') edadInput!: ElementRef;
+  formPerfilM!: FormGroup;
+  _formBuilder = inject(FormBuilder)
+  constructor(){
+    this.buildFormPerfil();
+  }
   @Input() perfilU: PerfilDTO = {
     id: '',
     edad: 0,
@@ -71,21 +76,23 @@ export class ListperfilComponent {
   kSex!: sexo[]
   selectedSex!: sexo;
 
+  private buildFormPerfil(){
+    this.formPerfilM = this._formBuilder.group({
+      edad: ['', [Validators.required], Validators.min(1), Validators.max(100)],
+      peso: ['',[Validators.required], Validators.min(0)],
+      sexo: ['',[Validators.required]]
+    });
+  }
   handleDialog(idP: string){
     this.buscarPerfil.emit(idP)
     this.showDialog = !this.showDialog
     this.kSex = [{tipo: 'Femenino'}, {tipo: 'Masculino'}]
   }
-  handleBotonGuardar(){
-    if(this.selectedSex.tipo !== null){
-      this.perfilEntity.sexo = this.selectedSex.tipo;
-      console.log(this.perfilEntity);
-      this.showDialog = !this.showDialog;
-    }
-    else{
-      alert("Por favor debe seleccionar un tipo de sexo");
-    }
-
+  handleBotonMGuardar(event: Event){
+    event.preventDefault();
+    const value = this.formPerfilM.value
+    console.log(value)
+    this.showDialog = !this.showDialog
   }
 }
 
