@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { PerfilDTO } from '../../../Models/perfil.model';
-import { gymUsuarioDTO } from '../../../Models/gymUsuarios.model';
+import { PerfilDTO } from '../../../../Models/perfil.model';
+import { gymUsuarioDTO } from '../../../../Models/gymUsuarios.model';
 //NGPrime
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';

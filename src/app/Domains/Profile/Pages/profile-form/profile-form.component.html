@@ -58,7 +58,7 @@
           <label for="edad" class="col-fixed" style="width:100px">Edad</label>
           <div class="col">
             <input id="edad" type="number" formControlName="edad" class="text-base text-color surface-overlay p-2 w-4 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
-            @if (profileForm.get('edad')?.invalid || profileForm.get('edad')?.touched) {
+            @if (profileForm.get('edad')?.invalid && profileForm.get('edad')?.touched) {
               @if (profileForm.get('edad')?.errors?.['invalidAge']) {
                 <div>
                   <p class="text-red-400">La Edad debe ser mayor de 10 y menor que 100</p>
@@ -71,7 +71,7 @@
           <label for="peso" class="col-fixed" style="width:100px">Peso</label>
           <div class="col">
             <input id="idU" type="number" formControlName="peso" class="text-base text-color surface-overlay p-2 w-4 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
-            @if (profileForm.get('peso')?.invalid || profileForm.get('peso')?.touched) {
+            @if (profileForm.get('peso')?.invalid && profileForm.get('peso')?.touched) {
               @if (profileForm.get('peso')?.errors?.['invalidWeigth']) {
                 <div>
                   <p class="text-red-400">El peso debe ser mayor que 0</p>
@@ -87,7 +87,7 @@
             <label for="generofemenino">Femenino </label>
             <input id="generomasculino" type="radio" formControlName="sexo" value="Masculino">
             <label for="generomasculino">Masculino</label>
-            @if (profileForm.get('sexo')?.invalid || profileForm.get('sexo')?.touched) {
+            @if (profileForm.get('sexo')?.invalid && profileForm.get('sexo')?.touched) {
               @if (profileForm.get('sexo')?.errors?.['required']) {
                 <div>
                   <p class="text-red-400">Seleccione una opción</p>
@@ -121,7 +121,7 @@
           <label for="edad" class="col-fixed" style="width:100px">Edad</label>
           <div class="col">
             <input id="edad" type="number" formControlName="edad" class="text-base text-color surface-overlay p-2 w-4 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
-            @if (profileFormC.get('edad')?.invalid || profileFormC.get('edad')?.touched) {
+            @if (profileFormC.get('edad')?.invalid && profileFormC.get('edad')?.touched) {
               @if (profileFormC.get('edad')?.errors?.['invalidAge']) {
                 <div>
                   <p class="text-red-400">La Edad debe ser mayor de 10 y menor que 100</p>
@@ -134,7 +134,7 @@
           <label for="peso" class="col-fixed" style="width:100px">Peso</label>
           <div class="col">
             <input id="idU" type="number" formControlName="peso" class="text-base text-color surface-overlay p-2 w-4 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary">
-            @if (profileFormC.get('peso')?.invalid || profileFormC.get('peso')?.touched) {
+            @if (profileFormC.get('peso')?.invalid && profileFormC.get('peso')?.touched) {
               @if (profileFormC.get('peso')?.errors?.['invalidWeigth']) {
                 <div>
                   <p class="text-red-400">El peso debe ser mayor que 0</p>
@@ -148,7 +148,7 @@
           <div class="col">
             <input id="genero" type="radio" formControlName="sexo" value="Femenino"> Femenino
             <input id="genero" type="radio" formControlName="sexo" value="Masculino"> Masculino
-            @if (profileFormC.get('sexo')?.invalid || profileFormC.get('sexo')?.touched) {
+            @if (profileFormC.get('sexo')?.invalid && profileFormC.get('sexo')?.touched) {
               @if (profileFormC.get('sexo')?.errors?.['required']) {
                 <div>
                   <p class="text-red-400">Seleccione una opción</p>

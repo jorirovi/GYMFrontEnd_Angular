@@ -1,0 +1,154 @@
+<!--Formulario principal de login-->
+<div>
+  <form [formGroup]="formLogin" (ngSubmit)="onSubmit($event)">
+    <div>
+      <label for="email">email</label>
+      <input type="text" id="email" formControlName="email">
+      @if (formLogin.get('email')?.errors && formLogin.get('email')?.touched) {
+        @if (formLogin.get('email')?.hasError('required')) {
+          <div>
+            <p>es un campo requerido</p>
+          </div>
+        }
+        @if (formLogin.get('email')?.hasError('email')) {
+          <div>
+            <p>debe ser una cuenta de email valida</p>
+          </div>
+        }
+      }
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input type="password" name="pass" id="password" formControlName="password">
+      @if (formLogin.get('password')?.errors && formLogin.get('password')?.touched) {
+        @if (formLogin.get('password')?.hasError('required')) {
+          <div>
+            <p>es un campo requerido</p>
+          </div>
+        }
+        @if (formLogin.get('password')?.hasError('minlength')) {
+          <div>
+            <p>El password debe tener minimo 8 caracteres</p>
+          </div>
+        }
+      }
+    </div>
+    <div>
+      <button type="submit" [disabled]="formLogin.invalid">LogIn</button>
+    </div>
+  </form>
+  <!---Boton para disparar el formulario Modal de crear usuario-->
+  <div>
+    <button (click)="onHandleModalCU()">Crear Usuario GYM</button>
+  </div>
+  <!--Formulario Modal crear usuario-->
+  <p-dialog header="Crear nuevo Usuario" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
+    <div>
+      <form [formGroup]="formNuevoUsuario" (submit)="onSave($event)">
+        <div>
+          <label for="nombre">Nombre</label>
+          <input type="text" name="nombre" id="nombre" formControlName="nombre">
+          @if (formNuevoUsuario.get('nombre')?.hasError && formNuevoUsuario.get('nombre')?.touched) {
+            @if (formNuevoUsuario.get('nombre')?.hasError('required')) {
+              <div>
+                <p>el campo es requerido</p>
+              </div>
+            }
+          }
+        </div>
+        <div>
+          <label for="apellidos">Apellidos</label>
+          <input type="text" name="apellidos" id="apellidos" formControlName="apellidos">
+          @if (formNuevoUsuario.get('apellidos')?.hasError && formNuevoUsuario.get('apellidos')?.touched) {
+            @if (formNuevoUsuario.get('apellidos')?.hasError('required')) {
+              <div>
+                <p>el campo es requerido</p>
+              </div>
+            }
+          }
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input type="text" name="email" id="email" formControlName="email">
+          @if (formNuevoUsuario.get('email')?.hasError && formNuevoUsuario.get('email')?.touched) {
+            @if (formNuevoUsuario.get('email')?.hasError('required')) {
+              <div>
+                <p>el campo es requerido</p>
+              </div>
+            }
+            @if (formNuevoUsuario.get('email')?.hasError('email')) {
+              <div>
+                <p>debe ser una cuenta de email valida</p>
+              </div>
+            }
+          }
+        </div>
+        <div>
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" formControlName="password">
+          @if (formNuevoUsuario.get('password')?.errors && formNuevoUsuario.get('password')?.touched) {
+            @if (formNuevoUsuario.get('password')?.hasError('required')) {
+              <div>
+                <p>el campo password es requerido</p>
+              </div>
+            }
+            @if (formNuevoUsuario.get('password')?.hasError('minlength')) {
+              <div>
+                <p>el campo debe tener almenos 8 caracteres</p>
+              </div>
+            }
+          }
+        </div>
+        <div>
+          <button (click)="onHandleModalCU()">cancel</button>
+          <button type="submit" [disabled]="formNuevoUsuario.invalid">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </p-dialog>
+</div>
+<!---Boton para disparar el formulario Modal para cambio de password-->
+<div>
+  <button (click)="onHandleModalMP()">Cambiar Password</button>
+</div>
+<p-dialog header="cambio de Password" [modal]="true" [(visible)]="visibleMP" [style]="{ width: '25rem'}">
+  <div>
+    <form [formGroup]="formCambiosPass" (submit)="onChangePass($event)">
+      <div>
+        <label for="emailcp">email</label>
+        <input type="text" id="emailcp" formControlName="emailCP">
+        @if (formCambiosPass.get('emailCP')?.errors && formCambiosPass.get('emailCP')?.touched) {
+          @if (formCambiosPass.get('emailCP')?.hasError('required')) {
+            <div>
+              <p>es un campo requerido</p>
+            </div>
+          }
+          @if (formCambiosPass.get('emailCP')?.hasError('email')) {
+            <div>
+              <p>debe ser una cuenta de email valida</p>
+            </div>
+          }
+        }
+      </div>
+      <div>
+        <label for="passwordcp">Password</label>
+        <input type="password" name="pass" id="passwordcp" formControlName="passwordCP">
+        @if (formCambiosPass.get('passwordCP')?.errors && formCambiosPass.get('passwordCP')?.touched) {
+          @if (formLogin.get('passwordCP')?.hasError('required')) {
+            <div>
+              <p>es un campo requerido</p>
+            </div>
+          }
+          @if (formCambiosPass.get('passwordCP')?.hasError('minlength')) {
+            <div>
+              <p>El password debe tener minimo 8 caracteres</p>
+            </div>
+          }
+        }
+      </div>
+      <div>
+        <button type="submit" [disabled]="formCambiosPass.invalid">Cambiar Password</button>
+      </div>
+    </form>
+  </div>
+</p-dialog>

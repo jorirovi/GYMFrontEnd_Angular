@@ -1,8 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { LoginModel } from '../Models/login.model';
 import { AuthModel } from '../Models/auth.model';
-import { tap } from 'rxjs';
+import { catchError, tap, throwError } from 'rxjs';
 import { TokenService } from './token.service';
 
 @Injectable({
@@ -11,15 +11,33 @@ import { TokenService } from './token.service';
 export class LoginService {
 
   constructor() { }
-  _tokenService = inject(TokenService)
+  private _tokenService = inject(TokenService)
   private http = inject(HttpClient)
   private apiURL = 'https://gymappjr.azurewebsites.net/api/Auth'
 
   getAuth(login: LoginModel){
     return this.http.post<AuthModel>(this.apiURL, login)
     .pipe(
-      tap(
-        response => this._tokenService.saveToken(response.token, response.idU)
-      ));
+      tap(response => this._tokenService.saveToken(response.token, response.idU)),
+      catchError(this.handleError)
+    );
   }
+
+  //manejador de errores
+  private handleError(error: HttpErrorResponse) {
+    let errorMessage = 'An unknown error occurred!';
+    if (error.error instanceof ErrorEvent) {
+      // Error del lado del cliente o de la red
+      errorMessage = `${error.error.message}`;
+    } else if (error.error) {
+      // Error devuelto por el backend
+      errorMessage = `${error.error.Message || error.error.message || error.message}`;
+    } else {
+      // Otro tipo de error
+      errorMessage = `${error.status}\nMessage: ${error.message}`;
+    }
+    // Devuelve un observable con un mensaje de error amigable para el usuario
+    return throwError(() => new Error(errorMessage));
+  }
+
 }

@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { ProfileFormComponent } from '../profile-form/profile-form.component';
-import { PerfilService } from '../../../Services/perfil.service';
-import { Perfil, PerfilDTO } from '../../../Models/perfil.model';
-import { TokenService } from '../../../Services/token.service';
-import { gymUsuarioDTO } from '../../../Models/gymUsuarios.model';
-import { UsuariosService } from '../../../Services/usuarios.service';
+import { ProfileFormComponent } from '../../Pages/profile-form/profile-form.component';
+import { PerfilService } from '../../../../Services/perfil.service';
+import { Perfil, PerfilDTO } from '../../../../Models/perfil.model';
+import { TokenService } from '../../../../Services/token.service';
+import { gymUsuarioDTO } from '../../../../Models/gymUsuarios.model';
+import { UsuariosService } from '../../../../Services/usuarios.service';
 
 
 @Component({
@@ -35,8 +35,6 @@ export class ProfileComponent {
   obtenerPerfil(idUsuario: string | any){
     this._perfilService.getAllPerfil().subscribe ({
       next: (arrayPerfiles) => {
-        console.log(idUsuario)
-        console.log(arrayPerfiles)
         arrayPerfiles.forEach(perfil => {
           if(perfil.idUsuario === idUsuario){
             this._perfilService.getPerfilbyIDU(perfil.idUsuario).subscribe({
@@ -55,6 +53,9 @@ export class ProfileComponent {
             });
           }
         });
+      },
+      error: (error) => {
+        alert(error.message)
       }
     });
   }
@@ -65,7 +66,7 @@ export class ProfileComponent {
         this.obtenerPerfil(perfilcambiado.idUsuario);
       },
       error: (err) => {
-        alert(err);
+        alert(err.message);
       }
     });
   }
@@ -76,7 +77,7 @@ export class ProfileComponent {
         this.obtenerPerfil(perfilCreado.idUsuario);
       },
       error: (err) => {
-        alert(err);
+        alert(err.message);
       }
     });
   }

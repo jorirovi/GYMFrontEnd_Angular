@@ -39,6 +39,9 @@ export class UsuarioComponent implements OnInit {
     this._gymUsuariosService.getUsuarios().subscribe({
       next: (usuario) => {
         this.usuarios = usuario
+      },
+      error: (error) =>{
+        alert(error.message)
       }
     });
   }
@@ -47,7 +50,10 @@ export class UsuarioComponent implements OnInit {
     this._gymUsuariosService.getUsuariosByID(idU).subscribe ({
       next: (usuarioEncontrado) => {
         this.usuario = usuarioEncontrado;
+      },
+      error: (err) => {
+        alert(err.message)
       }
-    })
+    });
   }
 }
