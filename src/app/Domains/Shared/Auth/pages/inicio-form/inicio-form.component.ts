@@ -4,12 +4,23 @@ import { validateHeaderName } from 'http';
 //ngImports
 import { DialogModule } from 'primeng/dialog';
 import { LoginModel } from '../../../../../Models/login.model';
+import { InputGroupModule } from 'primeng/inputgroup';
+import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
+import { InputTextModule } from 'primeng/inputtext';
+import { FieldsetModule } from 'primeng/fieldset';
+import { ButtonModule } from 'primeng/button';
+
 @Component({
   selector: 'app-inicio-form',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    DialogModule
+    DialogModule,
+    InputGroupAddonModule,
+    InputGroupModule,
+    InputTextModule,
+    FieldsetModule,
+    ButtonModule
   ],
   templateUrl: './inicio-form.component.html',
   styleUrl: './inicio-form.component.css'
