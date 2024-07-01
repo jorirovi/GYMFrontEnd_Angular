@@ -1,6 +1,6 @@
 <!--Formulario principal de login-->
 <div class="mt-8 lg:mx-8 mx-4 border-solid border-200 border-round-2xl">
-  <div class="ml-4 -mt-3 bg-white border-solid border-transparent lg:w-2 w-4 flex justify-content-center flex-wrap">
+  <div class="ml-4 -mt-3 bg-white border-solid border-transparent lg:w-2 md:w-2 w-4 flex justify-content-center flex-wrap">
     <p class="p-0 m-0">App myGYM</p>
   </div>
   <form class="lg:m-8 m-3 lg:px-8" [formGroup]="formLogin" (ngSubmit)="onSubmit($event)">
@@ -14,12 +14,12 @@
         @if (formLogin.get('email')?.errors && formLogin.get('email')?.touched) {
           @if (formLogin.get('email')?.hasError('required')) {
           <div>
-            <p class="mt-2 ml-6 text-sm text-red-200">es un campo requerido</p>
+            <p class="mt-2 ml-6 text-xs text-red-200">es un campo requerido</p>
           </div>
         }
         @if (formLogin.get('email')?.hasError('email')) {
           <div>
-            <p class="mt-2 ml-6 text-sm text-red-200">debe ser una cuenta de email valida</p>
+            <p class="mt-2 ml-6 text-xs text-red-200">debe ser una cuenta de email valida</p>
           </div>
         }
       }
@@ -33,18 +33,18 @@
     @if (formLogin.get('password')?.errors && formLogin.get('password')?.touched) {
       @if (formLogin.get('password')?.hasError('required')) {
         <div>
-          <p class="mt-2 ml-6 text-sm text-red-200">es un campo requerido</p>
+          <p class="mt-2 ml-6 text-xs text-red-200">es un campo requerido</p>
         </div>
       }
       @if (formLogin.get('password')?.hasError('minlength')) {
         <div>
-          <p class="mt-2 ml-6 text-sm text-red-200">El password debe tener minimo 8 caracteres</p>
+          <p class="mt-2 ml-6 text-xs text-red-200">El password debe tener minimo 8 caracteres</p>
         </div>
       }
     }
 
     <div class="mt-5">
-      <p-button type="submit" [raised]="true" [disabled]="formLogin.invalid">LogIn</p-button>
+      <p-button size="small" severity="success" type="submit" [raised]="true" [disabled]="formLogin.invalid">LogIn</p-button>
     </div>
   </form>
 </div>
@@ -52,118 +52,136 @@
 <div class="lg:flex lg:flex-row lg:flex-wrap flex-none mt-3 lg:ml-8 ml-4">
   <!---Boton para disparar el formulario Modal de crear usuario-->
   <div>
-    <p-button severity="secondary" (click)="onHandleModalCU()">Crear Usuario GYM</p-button>
+    <p-button size="small" severity="secondary" (click)="onHandleModalCU()">Crear Usuario GYM</p-button>
   </div>
   <!---Boton para disparar el formulario Modal para cambio de password-->
   <div class="lg:ml-2 lg:mt-0 mt-3">
-    <p-button  severity="warning" (click)="onHandleModalMP()">Cambiar Password</p-button>
+    <p-button  size="small" severity="warning" (click)="onHandleModalMP()">Cambiar Password</p-button>
   </div>
 </div>
 
 <!--Formulario Modal crear usuario-->
-<p-dialog header="Crear nuevo Usuario" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
+<p-dialog
+  header="Crear nuevo Usuario"
+  [modal]="true"
+  [(visible)]="visible"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '25rem'}"
+  [draggable]="false"
+  [resizable]="false">
   <div>
     <form [formGroup]="formNuevoUsuario" (submit)="onSave($event)">
-      <div>
-        <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" id="nombre" formControlName="nombre">
-        @if (formNuevoUsuario.get('nombre')?.hasError && formNuevoUsuario.get('nombre')?.touched) {
-          @if (formNuevoUsuario.get('nombre')?.hasError('required')) {
-            <div>
-              <p>el campo es requerido</p>
-            </div>
+      <div class="pt-3">
+        <div class="field">
+          <label class="w-5rem" for="nombre">Nombre</label>
+          <input pInputText class="lg:w-full w-16rem p-1" type="text" name="nombre" id="nombre" formControlName="nombre">
+          @if (formNuevoUsuario.get('nombre')?.hasError && formNuevoUsuario.get('nombre')?.touched) {
+            @if (formNuevoUsuario.get('nombre')?.hasError('required')) {
+              <div>
+                <p class="mt-0 p-0 ml-8 lg:ml-1 text-xs text-red-200">el campo es requerido</p>
+              </div>
+            }
           }
-        }
-      </div>
-      <div>
-        <label for="apellidos">Apellidos</label>
-        <input type="text" name="apellidos" id="apellidos" formControlName="apellidos">
-        @if (formNuevoUsuario.get('apellidos')?.hasError && formNuevoUsuario.get('apellidos')?.touched) {
-          @if (formNuevoUsuario.get('apellidos')?.hasError('required')) {
-            <div>
-              <p>el campo es requerido</p>
-            </div>
+        </div>
+        <div class="field">
+          <label class="w-5rem" for="apellidos">Apellidos</label>
+          <input pInputText class="lg:w-full w-16rem p-1" type="text" name="apellidos" id="apellidos" formControlName="apellidos">
+          @if (formNuevoUsuario.get('apellidos')?.hasError && formNuevoUsuario.get('apellidos')?.touched) {
+            @if (formNuevoUsuario.get('apellidos')?.hasError('required')) {
+              <div>
+                <p class="mt-0 p-0 ml-8 lg:ml-1 text-xs text-red-200">el campo es requerido</p>
+              </div>
+            }
           }
-        }
-      </div>
-      <div>
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" formControlName="email">
-        @if (formNuevoUsuario.get('email')?.hasError && formNuevoUsuario.get('email')?.touched) {
-          @if (formNuevoUsuario.get('email')?.hasError('required')) {
-            <div>
-              <p>el campo es requerido</p>
-            </div>
+        </div>
+        <div class="field">
+          <label class="w-5rem" for="email">Email</label>
+          <input pInputText class="lg:w-full w-16rem p-1" type="text" name="email" id="email" formControlName="email">
+          @if (formNuevoUsuario.get('email')?.hasError && formNuevoUsuario.get('email')?.touched) {
+            @if (formNuevoUsuario.get('email')?.hasError('required')) {
+              <div>
+                <p class="mt-0 p-0 ml-8 lg:ml-1 text-xs text-red-200">el campo es requerido</p>
+              </div>
+            }
+            @if (formNuevoUsuario.get('email')?.hasError('email')) {
+              <div>
+                <p class="mt-0 p-0 ml-8 lg:ml-1 text-xs text-red-200">debe ser una cuenta de email valida</p>
+              </div>
+            }
           }
-          @if (formNuevoUsuario.get('email')?.hasError('email')) {
-            <div>
-              <p>debe ser una cuenta de email valida</p>
-            </div>
+        </div>
+        <div class="field">
+          <label class="w-5rem" for="password">Password</label>
+          <input pInputText class="lg:w-full w-16rem p-1" type="password" name="password" id="password" formControlName="password">
+          @if (formNuevoUsuario.get('password')?.errors && formNuevoUsuario.get('password')?.touched) {
+            @if (formNuevoUsuario.get('password')?.hasError('required')) {
+              <div>
+                <p class="mt-0 p-0 ml-8 lg:ml-1 text-xs text-red-200">el campo password es requerido</p>
+              </div>
+            }
+            @if (formNuevoUsuario.get('password')?.hasError('minlength')) {
+              <div>
+                <p class="mt-0 p-0 ml-8 lg:ml-1 text-xs text-red-200">el campo debe tener almenos 8 caracteres</p>
+              </div>
+            }
           }
-        }
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" formControlName="password">
-        @if (formNuevoUsuario.get('password')?.errors && formNuevoUsuario.get('password')?.touched) {
-          @if (formNuevoUsuario.get('password')?.hasError('required')) {
-            <div>
-              <p>el campo password es requerido</p>
-            </div>
-          }
-          @if (formNuevoUsuario.get('password')?.hasError('minlength')) {
-            <div>
-              <p>el campo debe tener almenos 8 caracteres</p>
-            </div>
-          }
-        }
-      </div>
-      <div>
-        <button (click)="onHandleModalCU()">cancel</button>
-        <button type="submit" [disabled]="formNuevoUsuario.invalid">Guardar</button>
+        </div>
+        <div class="pt-2">
+          <p-button class="mr-2" severity="secondary" size="small" (click)="onHandleModalCU()">cancel</p-button>
+          <p-button severity="success" size="small" type="submit" [disabled]="formNuevoUsuario.invalid">Guardar</p-button>
+        </div>
       </div>
     </form>
   </div>
 </p-dialog>
 
 <!--Modal para el cambio de password-->
-<p-dialog header="cambio de Password" [modal]="true" [(visible)]="visibleMP" [style]="{ width: '25rem'}">
-  <div>
+<p-dialog
+  header="cambio de Password"
+  [modal]="true"
+  [(visible)]="visibleMP"
+  [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+  [style]="{ width: '25rem'}"
+  [draggable]="false"
+  [resizable]="false">
+  <div class="pt-3">
     <form [formGroup]="formCambiosPass" (submit)="onChangePass($event)">
       <div>
-        <label for="emailcp">email</label>
-        <input type="text" id="emailcp" formControlName="emailCP">
-        @if (formCambiosPass.get('emailCP')?.errors && formCambiosPass.get('emailCP')?.touched) {
-          @if (formCambiosPass.get('emailCP')?.hasError('required')) {
-            <div>
-              <p>es un campo requerido</p>
-            </div>
+        <div class=field>
+          <label class="w-5rem" for="emailcp">Email</label>
+          <input pInputText class="lg:w-full w-16rem p-1" type="text" id="emailcp" formControlName="emailCP">
+          @if (formCambiosPass.get('emailCP')?.errors && formCambiosPass.get('emailCP')?.touched) {
+            @if (formCambiosPass.get('emailCP')?.hasError('required')) {
+              <div>
+                <p class="mt-0 p-0 ml-8 lg:ml-1 text-xs text-red-200">es un campo requerido</p>
+              </div>
+            }
+            @if (formCambiosPass.get('emailCP')?.hasError('email')) {
+              <div>
+                <p class="mt-0 p-0 ml-8 lg:ml-1 text-xs text-red-200">debe ser una cuenta de Email valida</p>
+              </div>
+            }
           }
-          @if (formCambiosPass.get('emailCP')?.hasError('email')) {
-            <div>
-              <p>debe ser una cuenta de email valida</p>
-            </div>
+        </div>
+        <div class="field">
+          <label class="w-5rem lg:w-8rem" for="passwordcp">Nuevo Password</label>
+          <input pInputText class="lg:w-full w-16rem p-1" type="password" name="pass" id="passwordcp" formControlName="passwordCP">
+          @if (formCambiosPass.get('passwordCP')?.errors && formCambiosPass.get('passwordCP')?.touched) {
+            @if (formCambiosPass.get('passwordCP')?.hasError('required')) {
+              <div>
+                <p class="mt-0 p-0 ml-8 lg:ml-1 text-xs text-red-200">es un campo requerido</p>
+              </div>
+            }
+            @if (formCambiosPass.get('passwordCP')?.hasError('minlength')) {
+              <div>
+                <p class="mt-0 p-0 ml-8 lg:ml-1 text-xs text-red-200">El password debe tener minimo 8 caracteres</p>
+              </div>
+            }
           }
-        }
-      </div>
-      <div>
-        <label for="passwordcp">Password</label>
-        <input type="password" name="pass" id="passwordcp" formControlName="passwordCP">
-        @if (formCambiosPass.get('passwordCP')?.errors && formCambiosPass.get('passwordCP')?.touched) {
-          @if (formLogin.get('passwordCP')?.hasError('required')) {
-            <div>
-              <p>es un campo requerido</p>
-            </div>
-          }
-          @if (formCambiosPass.get('passwordCP')?.hasError('minlength')) {
-            <div>
-              <p>El password debe tener minimo 8 caracteres</p>
-            </div>
-          }
-        }
-      </div>
-      <div>
-        <button type="submit" [disabled]="formCambiosPass.invalid">Cambiar Password</button>
+        </div>
+        <div>
+          <p-button size="small" severity="warning" type="submit" [disabled]="formCambiosPass.invalid">Cambiar Password</p-button>
+        </div>
       </div>
     </form>
   </div>
