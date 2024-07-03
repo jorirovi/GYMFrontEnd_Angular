@@ -1,0 +1,57 @@
+<div class="lg:p-8 p-3">
+  <div>
+    <p-table
+      [value]="allZonasC"
+      responsiveLayout="stack"
+      [breakpoint]="'960px'"
+      [tableStyle]="{'min-width': '23rem'}">
+      <ng-template pTemplate="header" let-columns>
+          <tr>
+              <th>Parte Corporal</th>
+              <th>Numero</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-zc let-columns="columns">
+          <tr>
+            <td>
+                <span class="p-column-title">Zona Corporal</span>{{zc.zonaCorporal}}
+            </td>
+            <td>
+              <span class="p-column-title">Numero Z.C.</span>{{zc.numeroZC}}
+            </td>
+          </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  <div class="mt-5">
+    <button (click)="handleModalCZC()">Crear Zona Corporal</button>
+  </div>
+  <!--Inicio Modal de creacion de Zona Corporal-->
+  <div>
+    <p-dialog header="Nueva Zona Corpoeal"
+    [(visible)]="visibleMCZC"
+    [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false">
+      <div>
+        <form [formGroup]="formZC" (submit)="onSaveZC($event)">
+          <div>
+            <label for="zonacorporal">Zona Corporal</label>
+          </div>
+          <div>
+            <select name="zonacorporal" id="zonacorporal" formControlName="zonaCorporal">
+              @for (item of arrayZC; track $index) {
+                <option [value]="item.zc">{{item.zc}}</option>
+              }
+            </select>
+          </div>
+          <div class="mt-5">
+            <button type="submit" [disabled]="formZC.invalid">Guardar Zona Corporal</button>
+          </div>
+        </form>
+      </div>
+    </p-dialog>
+  </div>
+</div>

@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { validateHeaderName } from 'http';
+import { Errores } from '../../../../../Models/error.model';
 //ngImports
 import { DialogModule } from 'primeng/dialog';
 import { LoginModel } from '../../../../../Models/login.model';
@@ -9,6 +9,7 @@ import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
 import { FieldsetModule } from 'primeng/fieldset';
 import { ButtonModule } from 'primeng/button';
+
 
 @Component({
   selector: 'app-inicio-form',
@@ -20,7 +21,7 @@ import { ButtonModule } from 'primeng/button';
     InputGroupModule,
     InputTextModule,
     FieldsetModule,
-    ButtonModule
+    ButtonModule,
   ],
   templateUrl: './inicio-form.component.html',
   styleUrl: './inicio-form.component.css'

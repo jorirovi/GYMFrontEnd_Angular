@@ -34,7 +34,8 @@ export class MenuprincipalComponent {
           },
           {
             label: 'Zona Corporal',
-            icon: 'pi pi-android'
+            icon: 'pi pi-android',
+            routerLink: '/listZonaCorporal'
           }
         ]
       },

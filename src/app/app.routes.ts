@@ -3,6 +3,7 @@ import { MenuprincipalComponent } from './Domains/Shared/Menu/component/menuprin
 import { UsuarioComponent } from './Domains/Usuarios/component/usuario/usuario.component';
 import { ProfileComponent } from './Domains/Profile/Component/profile/profile.component';
 import { InicioComponent } from './Domains/Shared/Auth/Component/inicio/inicio.component';
+import { ZonaCorporalComponent } from './Domains/ZonaCorporal/Component/zona-corporal/zona-corporal.component';
 
 export const routes: Routes = [
   {
@@ -20,5 +21,9 @@ export const routes: Routes = [
   {
     path: 'listPerfil',
     component: ProfileComponent
+  },
+  {
+    path: 'listZonaCorporal',
+    component: ZonaCorporalComponent
   }
 ];

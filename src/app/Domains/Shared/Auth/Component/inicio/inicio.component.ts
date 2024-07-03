@@ -6,19 +6,29 @@ import { LoginService } from '../../../../../Services/login.service';
 import { gymUsuarios } from '../../../../../Models/gymUsuarios.model';
 import { LoginModel } from '../../../../../Models/login.model';
 import { Router } from '@angular/router';
+//import NGPrime
+import { MessagesModule } from 'primeng/messages';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-inicio',
   standalone: true,
-  imports: [InicioFormComponent],
+  imports: [
+    InicioFormComponent,
+    MessagesModule,
+    ToastModule
+  ],
   templateUrl: './inicio.component.html',
   styleUrl: './inicio.component.css'
+
 })
 export class InicioComponent {
   _tokenService = inject(TokenService);
   _usuarioService = inject(UsuariosService);
   _loginService = inject(LoginService);
   _router = inject(Router)
+  _messageService = inject(MessageService)
 
   usuarioE: gymUsuarios = {id: '', nombre: '', apellidos: '', email: '', password: ''};
   loginNU: LoginModel = {email:'', password:''};
@@ -30,7 +40,7 @@ export class InicioComponent {
         this._router.navigate(['/menuPrincipal'])
       },
       error: (error) => {
-        alert(error.message)
+        this._messageService.add({severity: 'error', summary: 'Error', detail: error.message})
       }
     });
   }
