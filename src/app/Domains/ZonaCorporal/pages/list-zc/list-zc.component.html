@@ -8,7 +8,7 @@
       <ng-template pTemplate="header" let-columns>
           <tr>
               <th>Parte Corporal</th>
-              <th>Numero</th>
+              <th></th>
           </tr>
       </ng-template>
       <ng-template pTemplate="body" let-zc let-columns="columns">
@@ -16,8 +16,16 @@
             <td>
                 <span class="p-column-title">Zona Corporal</span>{{zc.zonaCorporal}}
             </td>
-            <td>
-              <span class="p-column-title">Numero Z.C.</span>{{zc.numeroZC}}
+            <td class="p-column-title">
+              <span class="p-column-title">Eliminar Registro</span>
+              <p-confirmDialog/>
+              <p-button
+                [rounded]="true"
+                icon="pi pi-times"
+                severity="danger"
+                [outlined]="true"
+                (onClick)="onSelectZC(zc, $event)"
+              ></p-button>
             </td>
           </tr>
       </ng-template>

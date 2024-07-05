@@ -1,5 +1,5 @@
 export interface ZonaCorporal{
   id: string;
-  zonacorporal: string;
+  zonaCorporal: string;
   numeroZC: number;
 }

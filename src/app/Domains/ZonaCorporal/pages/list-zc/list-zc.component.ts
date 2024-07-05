@@ -1,9 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject, output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ZonaCorporal } from '../../../../Models/zonaCorporal.model';
 //ng Imports
 import { DialogModule } from 'primeng/dialog';
 import { TableModule } from 'primeng/table';
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { EliminarModel } from '../../../../Models/deletem.model';
 
 @Component({
   selector: 'app-list-zc',
@@ -11,13 +17,23 @@ import { TableModule } from 'primeng/table';
   imports: [
     ReactiveFormsModule,
     DialogModule,
-    TableModule
+    TableModule,
+    ButtonModule,
+    RippleModule,
+    ConfirmDialogModule,
+    ToastModule
   ],
   templateUrl: './list-zc.component.html',
   styleUrl: './list-zc.component.css'
 })
 export class ListZCComponent {
-  @Input() allZonasC: ZonaCorporal[] = []
+  @Input() allZonasC: ZonaCorporal[] = [];
+  @Input() mensajeOK = '';
+  @Output() entityZC = new EventEmitter();
+  @Output() eliminarZC = new EventEmitter();
+
+  _confirmationService = inject(ConfirmationService);
+  _messageService = inject(MessageService);
 
   formZC!: FormGroup;
 
@@ -45,12 +61,17 @@ export class ListZCComponent {
     {
       zc: 'Abs',
       numeroZC: 6
+    },
+    {
+      zc: 'Pantorrilla',
+      numeroZC: 7
     }
   ];
   visibleMCZC: boolean = false;
 
   constructor(){
     this.buildFormZC();
+
   }
 
   buildFormZC(){
@@ -69,12 +90,57 @@ export class ListZCComponent {
   onSaveZC(event: Event){
     event.preventDefault();
     if(this.formZC.valid){
-      const valorBuscado = this.formZC.get('zonaCorporal')?.value;
-      const index = this.arrayZC.findIndex(a => a.zc === valorBuscado);
-      this.formZC.get('numeroZC')?.setValue(this.arrayZC[index].numeroZC);
-      console.log(this.formZC.value);
+      if(this.allZonasC.length > 0){
+        const zcNome: string = this.formZC.get('zonaCorporal')?.value;
+        this.formZC.get('zonaCorporal')?.setValue(zcNome.toLowerCase());
+        const valor = (this.allZonasC.length) - 1;
+        const numeroZC = (this.allZonasC[valor].numeroZC) + 1;
+        this.formZC.get('numeroZC')?.setValue(numeroZC);
+        this.entityZC.emit(this.formZC.value);
+        this.visibleMCZC = !this.visibleMCZC;
+      } else {
+        const zcNome: string = this.formZC.get('zonaCorporal')?.value;
+        this.formZC.get('zonaCorporal')?.setValue(zcNome.toLowerCase());
+        const numeroZC = 1;
+        this.formZC.get('numeroZC')?.setValue(numeroZC);
+        this.entityZC.emit(this.formZC.value);
+        this.visibleMCZC = !this.visibleMCZC;
+      }
     }
+  }
 
+  onSelectZC(zcEntity: ZonaCorporal, event: Event){
+    console.log(zcEntity);
+    this._confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `Quiere eliminar el registro: ${zcEntity.zonaCorporal}`,
+      header: 'Eliminar Zona Corporal',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass:"p-button-danger p-button-text",
+      rejectButtonStyleClass:"p-button-text p-button-text",
+      acceptIcon:"none",
+      rejectIcon:"none",
+
+      accept: () => {
+        this._messageService.add({
+          severity: 'success',
+          summary: 'confirmed',
+          detail: `El Registro: ${zcEntity.zonaCorporal} fue eliminado!`,
+          life: 5000
+        });
+        console.log(this.mensajeOK)
+        this.eliminarZC.emit(zcEntity);
+
+      },
+      reject: () => {
+        this._messageService.add({
+          severity: 'error',
+          summary: 'Cancelado',
+          detail: "haz cancelado la eliminacion",
+          life: 3000
+        });
+      }
+    })
   }
 
   handleModalCZC(){
