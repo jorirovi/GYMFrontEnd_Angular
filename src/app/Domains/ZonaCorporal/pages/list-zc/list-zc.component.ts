@@ -7,9 +7,14 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ToastModule } from 'primeng/toast';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { EliminarModel } from '../../../../Models/deletem.model';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
+import { DropdownModule } from 'primeng/dropdown';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+
+interface ZCs {
+  zc: string;
+  numeroZC: number
+}
 
 @Component({
   selector: 'app-list-zc',
@@ -21,7 +26,8 @@ import { EliminarModel } from '../../../../Models/deletem.model';
     ButtonModule,
     RippleModule,
     ConfirmDialogModule,
-    ToastModule
+    DropdownModule,
+    BreadcrumbModule
   ],
   templateUrl: './list-zc.component.html',
   styleUrl: './list-zc.component.css'
@@ -37,7 +43,9 @@ export class ListZCComponent {
 
   formZC!: FormGroup;
 
-  arrayZC = [
+  items: MenuItem[] | undefined;
+  home: MenuItem | undefined;
+  arrayZC: ZCs[] = [
     {
       zc: 'Pierna',
       numeroZC: 1
@@ -71,7 +79,13 @@ export class ListZCComponent {
 
   constructor(){
     this.buildFormZC();
+  }
 
+  ngOnInit(){
+    this.items = [{
+      label: 'Perfil'
+    }];
+    this.home = {icon: 'pi pi-home', routerLink: '/menuPrincipal'}
   }
 
   buildFormZC(){
@@ -91,8 +105,9 @@ export class ListZCComponent {
     event.preventDefault();
     if(this.formZC.valid){
       if(this.allZonasC.length > 0){
-        const zcNome: string = this.formZC.get('zonaCorporal')?.value;
-        this.formZC.get('zonaCorporal')?.setValue(zcNome.toLowerCase());
+        const zcNome: ZCs = this.formZC.get('zonaCorporal')?.value;
+        let nuevaZC: string = zcNome.zc
+        this.formZC.get('zonaCorporal')?.setValue(nuevaZC.toLowerCase());
         const valor = (this.allZonasC.length) - 1;
         const numeroZC = (this.allZonasC[valor].numeroZC) + 1;
         this.formZC.get('numeroZC')?.setValue(numeroZC);
@@ -128,7 +143,7 @@ export class ListZCComponent {
           detail: `El Registro: ${zcEntity.zonaCorporal} fue eliminado!`,
           life: 5000
         });
-        console.log(this.mensajeOK)
+
         this.eliminarZC.emit(zcEntity);
 
       },
