@@ -83,7 +83,7 @@ export class ListZCComponent {
 
   ngOnInit(){
     this.items = [{
-      label: 'Perfil'
+      label: 'Zona Corporal'
     }];
     this.home = {icon: 'pi pi-home', routerLink: '/menuPrincipal'}
   }

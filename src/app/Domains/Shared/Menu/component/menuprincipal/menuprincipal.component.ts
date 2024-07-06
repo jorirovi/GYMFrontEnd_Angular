@@ -36,6 +36,11 @@ export class MenuprincipalComponent {
             label: 'Zona Corporal',
             icon: 'pi pi-android',
             routerLink: '/listZonaCorporal'
+          },
+          {
+            label: 'Rutinas',
+            icon: 'pi pi-briefcase',
+            routerLink: '/listRutinas'
           }
         ]
       },

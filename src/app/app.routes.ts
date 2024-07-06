@@ -4,6 +4,7 @@ import { UsuarioComponent } from './Domains/Usuarios/component/usuario/usuario.c
 import { ProfileComponent } from './Domains/Profile/Component/profile/profile.component';
 import { InicioComponent } from './Domains/Shared/Auth/Component/inicio/inicio.component';
 import { ZonaCorporalComponent } from './Domains/ZonaCorporal/Component/zona-corporal/zona-corporal.component';
+import { RutinaComponent } from './Domains/Rutinas/Component/rutina/rutina.component';
 
 export const routes: Routes = [
   {
@@ -25,5 +26,9 @@ export const routes: Routes = [
   {
     path: 'listZonaCorporal',
     component: ZonaCorporalComponent
+  },
+  {
+    path: 'listRutinas',
+    component: RutinaComponent
   }
 ];
