@@ -4,3 +4,33 @@
         [model]="items"
         [home]="home" />
 </div>
+<div>
+  <p-table
+    [value]="rutinas"
+    responsiveLayout="stack"
+    breakpoint="'960px'"
+    [tableStyle]="{'min-width': '23rem'}">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th>Rutina</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rt let-columns="columns">
+        <tr>
+          <td>
+            <span class="p-column-title">Rutina</span>{{rt.rutina}}
+          </td>
+          <td>
+            <p-button
+              [rounded]="true"
+              icon="pi pi-times"
+              severity="danger"
+              [outlined]="true"
+              (onClick)="onSelectRutinas(rt, $event)">
+            </p-button>
+          </td>
+        </tr>
+      </ng-template>
+  </p-table>
+</div>
