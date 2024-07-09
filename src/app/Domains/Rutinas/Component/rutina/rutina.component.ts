@@ -28,8 +28,53 @@ export class RutinaComponent {
   onObtenerRutinas(){
     this._rutinaService.GetAllRutinas().subscribe({
       next: (rutinas) => {
-        console.log(rutinas)
         this.todasRutinas = rutinas;
+      },
+      error: (err) => {
+        this._messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err,
+          life: 3000
+        });
+      }
+    });
+  }
+
+  onCrearRutina(entity: RutinasModel){
+    this._rutinaService.addRutinas(entity).subscribe({
+      next: (rutinaN) => {
+        this._messageService.add({
+          severity: 'success',
+          summary: 'registro Creado',
+          detail: `Se crea el registro ${entity.rutina}`,
+          life: 3000
+        });
+        this.onObtenerRutinas();
+      },
+      error: (err) => {
+        this._messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err,
+          life: 3000
+        });
+      }
+    });
+  }
+
+  onEliminarRutina(entity: RutinasModel){
+    let parametro: string = entity.id
+    console.log(parametro)
+    this._rutinaService.deleteRutinas(parametro).subscribe({
+      next: (mensajeE) => {
+        this._messageService.add({
+          severity: 'success',
+          summary: 'Registro Eliminado',
+          detail: mensajeE.message,
+          life: 3000
+        });
+        this.onObtenerRutinas();
       },
       error: (err) => {
         this._messageService.add({

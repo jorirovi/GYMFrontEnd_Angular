@@ -125,7 +125,6 @@ export class ListZCComponent {
   }
 
   onSelectZC(zcEntity: ZonaCorporal, event: Event){
-    console.log(zcEntity);
     this._confirmationService.confirm({
       target: event.target as EventTarget,
       message: `Quiere eliminar el registro: ${zcEntity.zonaCorporal}`,

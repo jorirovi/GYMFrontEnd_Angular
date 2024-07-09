@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { RutinasModel } from '../Models/rutina.model';
 import { TokenService } from './token.service';
 import { catchError, throwError } from 'rxjs';
+import { EliminarModel } from '../Models/deletem.model';
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class RutinasService {
   }
 
   addRutinas(entity: RutinasModel){
-    return this._httpService.post(this.apiURL,entity,{
+    return this._httpService.post<RutinasModel>(this.apiURL,entity,{
       headers: {Authorization: `Bearer ${this._tokenService.getToken()}`}
     }).pipe(
         catchError(this.handleError)
@@ -48,7 +49,7 @@ export class RutinasService {
   }
 
   deleteRutinas(idR: string){
-    return this._httpService.delete(`${this.apiURL}/${idR}`,{
+    return this._httpService.delete<EliminarModel>(`${this.apiURL}/${idR}`,{
       headers: {Authorization: `Bearer ${this._tokenService.getToken()}`}
     }).pipe(
         catchError(this.handleError)

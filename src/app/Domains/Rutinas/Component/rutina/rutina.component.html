@@ -1,3 +1,6 @@
+<p-toast/>
 <app-rutinalist
   [rutinas]="todasRutinas"
+  (entityRutina)="onCrearRutina($event)"
+  (EliminarEntity)="onEliminarRutina($event)"
 />

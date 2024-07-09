@@ -4,16 +4,16 @@
         [model]="items"
         [home]="home" />
 </div>
-<div class="lg:p-8 p-3">
-  <div class="border-round-lg border-300 border-solid">
-    <p-table
+<div class="lg:p-8 p-1">
+  <div>
+    <div>
+      <p-table
       [value]="allZonasC"
       responsiveLayout="stack"
       [paginator]="true"
       [breakpoint]="'960px'"
       [tableStyle]="{'min-width': '23rem'}"
-      [rows]="3"
-      [rowsPerPageOptions]="[2, 3]">
+      [rows]="3">
       <ng-template pTemplate="header" let-columns>
           <tr>
               <th>Parte Corporal</th>
@@ -50,34 +50,35 @@
       />
   </div>
   <!--Inicio Modal de creacion de Zona Corporal-->
-  <div>
+  <div class="lg:p-8 p-3">
     <p-dialog header="Nueva Zona Corporal"
-    [(visible)]="visibleMCZC"
-    [modal]="true"
-    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
-    [style]="{ width: '50vw' }"
-    [draggable]="false"
-    [resizable]="false">
-      <div class="border-solid border-300 lg:border-round-lg border-round-sm h-24rem flex px-3 row-gap-8">
-        <form [formGroup]="formZC" (submit)="onSaveZC($event)">
-          <div class="pt-2 h-10rem flex">
-            <p-dropdown
-              formControlName="zonaCorporal"
-              [options]="arrayZC"
-              optionLabel="zc"
-              placeholder="Seleccione una Zona Corporal"
-            />
-          </div>
-          <div class="flex botonGuardar">
-            <p-button
-              type="submit"
-              [disabled]="formZC.invalid"
-              label="Guardar"
-              size="small"
-            />
-          </div>
-        </form>
-      </div>
-    </p-dialog>
+      [(visible)]="visibleMCZC"
+      [modal]="true"
+      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+      [style]="{ width: '50vw' }"
+      [draggable]="false"
+      [resizable]="false">
+        <div class="border-solid border-300 lg:border-round-lg border-round-sm h-24rem flex px-3 row-gap-8">
+          <form [formGroup]="formZC" (submit)="onSaveZC($event)">
+            <div class="pt-2 h-10rem flex">
+              <p-dropdown
+                formControlName="zonaCorporal"
+                [options]="arrayZC"
+                optionLabel="zc"
+                placeholder="Seleccione una Zona Corporal"
+              />
+            </div>
+            <div class="flex botonGuardar">
+              <p-button
+                type="submit"
+                [disabled]="formZC.invalid"
+                label="Guardar"
+                size="small"
+              />
+            </div>
+          </form>
+        </div>
+      </p-dialog>
+    </div>
   </div>
 </div>

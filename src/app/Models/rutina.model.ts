@@ -1,4 +1,4 @@
 export interface RutinasModel {
-  Id: string;
+  id: string;
   rutina: string;
 }
