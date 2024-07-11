@@ -1,0 +1,45 @@
+<p>list-profile works!</p>
+<div class="contenedor">
+  <p-table
+    [value]="listadoUsuarios"
+    responsiveLayout="stack"
+    [breakpoint]="'959px'"
+    [tableStyle]="{'min-width': '15rem'}">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+          <th>Nombre</th>
+          <th class="celular">Apellidos</th>
+          <th class="celular">Email</th>
+          <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-usuario let-columns="columns">
+      <tr>
+        <td>
+          <span class="p-column-title">Nombre</span>{{usuario.nombre}}
+        </td>
+        <div class="celular">
+          <td>
+            {{usuario.apellidos}}
+          </td>
+        </div>
+        <div class="celular">
+          <td>
+            {{usuario.email}}
+          </td>
+        </div>
+
+        <td>
+          <span class="p-column-title">Acción</span>
+          <p-button
+                [rounded]="true"
+                icon="pi pi-eye"
+                severity="success"
+                (onClick)="onViewProfile(usuario)"
+              ></p-button>
+        </td>
+      </tr>
+    </ng-template>
+
+  </p-table>
+</div>

@@ -1,0 +1,25 @@
+.contenedor{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  align-items:stretch;
+}
+.celular{
+  display: none;
+}
+@media (min-width:960px){
+  .celular{
+    display: table-cell;
+    text-align: left;
+    align-content: center;
+    border: 1px solid #e5e7eb;
+    border-width: 0 0 1px 0;
+    padding: 1rem 1rem;
+  }
+  .contenedor{
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+    align-items:stretch;
+  }
+}

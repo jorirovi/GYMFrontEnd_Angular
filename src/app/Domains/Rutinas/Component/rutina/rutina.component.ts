@@ -18,7 +18,7 @@ import { MessageService } from 'primeng/api';
 })
 export class RutinaComponent {
   _rutinaService = inject(RutinasService);
-  _messageService = inject(MessageService)
+  _messageService = inject(MessageService);
   todasRutinas: RutinasModel[] = [];
 
   constructor(){

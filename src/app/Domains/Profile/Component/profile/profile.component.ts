@@ -5,13 +5,18 @@ import { Perfil, PerfilDTO } from '../../../../Models/perfil.model';
 import { TokenService } from '../../../../Services/token.service';
 import { gymUsuarioDTO } from '../../../../Models/gymUsuarios.model';
 import { UsuariosService } from '../../../../Services/usuarios.service';
-
+import { ListProfileComponent } from '../../Pages/list-profile/list-profile.component';
+//Imports NGPrime
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
     ProfileFormComponent,
+    ListProfileComponent,
+    ToastModule
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
@@ -19,20 +24,23 @@ import { UsuariosService } from '../../../../Services/usuarios.service';
 export class ProfileComponent {
   _perfilService = inject(PerfilService);
   _tokenService = inject(TokenService);
-  _usuarioService = inject(UsuariosService)
+  _usuarioService = inject(UsuariosService);
+  _messageService = inject(MessageService);
   usuario: gymUsuarioDTO = {id: '', nombre: '', apellidos: '', email: ''};
   perfil: Perfil = {id: '', idUsuario: '',edad: 0, peso: 0, sexo: ''};
   perfilWU: PerfilDTO = {id: '', idUsuario: '', datosUsuario: {id: '', nombre: '', apellidos: '', email: ''}, edad: 0, peso: 0, sexo: ''};
   perfilAll: PerfilDTO[] = [];
   idUsuario: string | any;
   crearPerfil: boolean = false;
+  listaUsuarios: gymUsuarioDTO[] = [];
 
 
   ngOnInit(){
-    this.obtenerPerfil(this._tokenService.getIdU());
+    this.onObtenerListaUsuarios();
+    //this.obtenerPerfil(this._tokenService.getIdU());
   }
 
-  obtenerPerfil(idUsuario: string | any){
+  obtenerPerfil(idUsuario: any){
     this._perfilService.getAllPerfil().subscribe ({
       next: (arrayPerfiles) => {
         arrayPerfiles.forEach(perfil => {
@@ -55,18 +63,35 @@ export class ProfileComponent {
         });
       },
       error: (error) => {
-        alert(error.message)
+        this._messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.message,
+          life: 3000
+        })
       }
     });
   }
 
+  onObtenerListaUsuarios(){
+    this._usuarioService.getUsuarios().subscribe({
+      next: (listado) => {
+        this.listaUsuarios = listado;
+      }
+    })
+  }
   updatePerfil(perfilU: Perfil){
     this._perfilService.updatePerfil(perfilU).subscribe({
       next: (perfilcambiado) => {
         this.obtenerPerfil(perfilcambiado.idUsuario);
       },
       error: (err) => {
-        alert(err.message);
+        this._messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.message,
+          life: 3000
+        });
       }
     });
   }
@@ -77,7 +102,12 @@ export class ProfileComponent {
         this.obtenerPerfil(perfilCreado.idUsuario);
       },
       error: (err) => {
-        alert(err.message);
+        this._messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: err.message,
+          life: 3000
+        });
       }
     });
   }
