@@ -7,6 +7,31 @@
 .celular{
   display: none;
 }
+.contenedorP{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 60px 60px 60px;
+  gap: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px;
+  justify-content: space-between;
+}
+.nombre, .apellidos, .email{
+  display: flex;
+  flex-direction: column;
+}
+.etiqueta{
+  width: 100%;
+}
+.contenBotones{
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+.bmodificar{
+  padding-bottom: 10px;
+}
 @media (min-width:960px){
   .celular{
     display: table-cell;
@@ -21,5 +46,26 @@
     flex-direction: column;
     margin: 50px;
     align-items:stretch;
+  }
+
+  .contenedorP{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 60px 60px;
+    gap: 10px;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 10px;
+    justify-content: space-between;
+  }
+
+  .contenBotones{
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+  }
+
+  .bmodificar{
+    padding-right: 10px;
   }
 }

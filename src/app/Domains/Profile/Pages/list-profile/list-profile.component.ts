@@ -2,13 +2,16 @@ import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { gymUsuarioDTO } from '../../../../Models/gymUsuarios.model';
 import { PerfilDTO } from '../../../../Models/perfil.model';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UnitPipe } from '../../../../unit.pipe';
 //Imports NGPrime
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TokenService } from '../../../../Services/token.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
+
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @Component({
   selector: 'app-list-profile',
@@ -18,7 +21,9 @@ import { DialogModule } from 'primeng/dialog';
     ButtonModule,
     ConfirmPopupModule,
     ReactiveFormsModule,
-    DialogModule
+    DialogModule,
+    UnitPipe,
+    BreadcrumbModule
   ],
   templateUrl: './list-profile.component.html',
   styleUrl: './list-profile.component.css'
@@ -28,6 +33,9 @@ export class ListProfileComponent {
   _messageService = inject(MessageService);
   _confirmationService = inject(ConfirmationService);
   visibleForm: boolean = false;
+  visiblePerfil: boolean = false;
+  items: MenuItem[] | undefined;
+  home: MenuItem | undefined;
 
   //@Inputs
   @Input() listadoUsuarios: gymUsuarioDTO[] = [];
@@ -42,6 +50,13 @@ export class ListProfileComponent {
     peso: new FormControl<number>(0, [Validators.required, this.weigthValidator]),
     sexo: new FormControl<string | null>(null, Validators.required)
   });
+
+  ngOnInit(){
+    this.items = [{
+      label: 'Perfil'
+    }];
+    this.home = {icon: 'pi pi-home', routerLink: '/menuPrincipal'}
+  }
   private delay(ms: number): Promise<void>{
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -68,7 +83,7 @@ export class ListProfileComponent {
           }
         });
       } else {
-        console.log(this.perfilUsuario);
+        this.visiblePerfil = !this.visiblePerfil;
       }
     }
     else

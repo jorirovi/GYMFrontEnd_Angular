@@ -1,4 +1,9 @@
-<p>list-profile works!</p>
+<div class="mb-3">
+  <p-breadcrumb
+        class="max-w-full"
+        [model]="items"
+        [home]="home" />
+</div>
 <div class="contenedor">
   <p-table
     [value]="listadoUsuarios"
@@ -46,7 +51,7 @@
 <!-- Inicio del formulario-->
 <div>
   <p-dialog
-    header="Header"
+    header="Perfil"
     [(visible)]="visibleForm"
     [modal]="true"
     [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
@@ -59,5 +64,56 @@
 
       </form>
     </div>
+  </p-dialog>
+</div>
+<!--Dialogo para mostrar el perfel del usuario-->
+<div>
+  <p-dialog
+    header="Perfil"
+    [(visible)]="visiblePerfil"
+    [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false">
+    <!--Form
+      Aqui va el formulario
+    -->
+    <div class="contenedorP">
+      <div class="nombre">
+        <div class="etiqueta">Nombre:</div>
+        <div class="campo">{{perfilUsuario.datosUsuario.nombre}}</div>
+      </div>
+      <div class="apellidos">
+        <div class="etiqueta">Apellidos: </div>
+        <div class="campo">{{perfilUsuario.datosUsuario.apellidos}}</div>
+      </div>
+      <div class="email">
+        <div class="etiqueta">Emial:</div>
+        <div class="campo">{{perfilUsuario.datosUsuario.email}}</div>
+      </div>
+      <div class="genero">
+        <div class="etiqueta">Genero:</div>
+        <div class="campo">{{perfilUsuario.sexo}}</div>
+      </div>
+      <div class="peso">
+        <div class="etiqueta">Peso:</div>
+        <div class="campo">{{perfilUsuario.peso | unit:'kg'}}</div>
+      </div>
+      <div class="edad">
+        <div class="etiqueta">Edad:</div>
+        <div class="campo">{{perfilUsuario.edad | unit: 'años'}}</div>
+      </div>
+    </div>
+    <div class="contenBotones">
+      <p-button
+        class="bmodificar"
+        label="Modificar"
+        size="small"/>
+      <p-button label="Cerrar"
+        severity="secondary"
+        size="small"/>
+    </div>
+
   </p-dialog>
 </div>
