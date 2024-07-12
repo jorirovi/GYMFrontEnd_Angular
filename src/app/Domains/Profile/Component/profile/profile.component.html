@@ -9,4 +9,6 @@
 </app-profile-form>-->
 <app-list-profile
   [listadoUsuarios]="listaUsuarios"
+  (searchProfile)="onObtenerPerfilUsuario($event)"
+  [perfilUsuario]="perfilWU"
 />

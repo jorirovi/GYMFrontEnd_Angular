@@ -4,7 +4,7 @@
     [value]="listadoUsuarios"
     responsiveLayout="stack"
     [breakpoint]="'959px'"
-    [tableStyle]="{'min-width': '15rem'}">
+    [tableStyle]="{'min-width': '23rem'}">
     <ng-template pTemplate="header" let-columns>
       <tr>
           <th>Nombre</th>
@@ -31,15 +31,33 @@
 
         <td>
           <span class="p-column-title">Acción</span>
+          <p-confirmPopup/>
           <p-button
-                [rounded]="true"
-                icon="pi pi-eye"
-                severity="success"
-                (onClick)="onViewProfile(usuario)"
-              ></p-button>
+            [rounded]="true"
+            icon="pi pi-eye"
+            severity="success"
+            (onClick)="onViewProfile(usuario, $event)"
+          ></p-button>
         </td>
       </tr>
     </ng-template>
-
   </p-table>
+</div>
+<!-- Inicio del formulario-->
+<div>
+  <p-dialog
+    header="Header"
+    [(visible)]="visibleForm"
+    [modal]="true"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"
+    [style]="{ width: '50vw' }"
+    [draggable]="false"
+    [resizable]="false">
+    <!--Form-->
+    <div>
+      <form action="">
+
+      </form>
+    </div>
+  </p-dialog>
 </div>

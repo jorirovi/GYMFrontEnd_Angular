@@ -68,7 +68,25 @@ export class ProfileComponent {
           summary: 'Error',
           detail: error.message,
           life: 3000
-        })
+        });
+      }
+    });
+  }
+
+  onObtenerPerfilUsuario(idU: string){
+    this._perfilService.getPerfilbyIDU(idU).subscribe({
+      next: (perfil) => {
+        this.perfilWU = perfil;
+      },
+      error: (err) => {
+        if(err.message !== "El Registro buscado no existe!"){
+          this._messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: err.message,
+            life: 3000
+          });
+        }
       }
     });
   }
