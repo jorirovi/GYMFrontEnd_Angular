@@ -1,0 +1,17 @@
+.contenedor{
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: start;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  row-gap: 10px;
+}
+.filtro{
+  padding: 2rem;
+}
+.detalle{
+  border: 1px solid;
+  border-radius: 10px;
+  background-color: lightblue;
+}
+

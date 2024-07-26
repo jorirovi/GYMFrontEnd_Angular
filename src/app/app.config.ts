@@ -18,6 +18,7 @@ export const appConfig: ApplicationConfig = {
     provideNoopAnimations(),
     MessageService,
     ConfirmationService
+
   ],
 
 };

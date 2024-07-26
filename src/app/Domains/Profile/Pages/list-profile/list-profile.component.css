@@ -32,7 +32,7 @@
 .bmodificar{
   padding-bottom: 10px;
 }
-@media (min-width:960px){
+@media (min-width:930px){
   .celular{
     display: table-cell;
     text-align: left;

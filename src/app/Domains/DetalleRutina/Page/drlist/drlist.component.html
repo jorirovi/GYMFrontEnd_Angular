@@ -1,0 +1,47 @@
+<div class="contenedor">
+  <p-table
+    [value]="detalle"
+    responsiveLayout="stack"
+    [breakpoint]="'960px'"
+    [tableStyle]="{'min-width': '23rem'}">>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+          <th>Ejercicio</th>
+          <th>Zona Corporal</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-dr let-columns="columns">
+      <tr>
+          <td>
+            <span class="p-column-title">Ejercicio</span>{{ dr.ejercicio }}
+          </td>
+          <td>
+            <span class="p-column-title">Zona Corporal</span>{{ dr.dZonaCorporal.zonaCorporal }}
+          </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<!--Formulario con un Dialog Box-->
+<p-dialog
+  header="Header"
+  [(visible)]="formularioV"
+  [modal]="true"
+  [breakpoints]="{'1199px': '75vw', '575px': '90vw'}"
+  [style]="{ width: '50vw'}"
+  [draggable]="false"
+  [resizable]="false">
+    <span class="p-text-secondary block mb-5">Crear Detalle de Rutina</span>
+    <div class="contenedorForm">
+      <form [formGroup]="frmDR" (submit)="onSubmitData($event)">
+        <select name="rutina" formControlName="idrutina">
+          @for (r of rutina; track $index) {
+            <option [value]="r.id">{{r.rutina}}</option>
+          }
+        </select>
+      </form>
+    </div>
+</p-dialog>
+
+

@@ -1,3 +1,55 @@
 <div class="card">
-  <p-menubar [model]="items" />
+  <p-menubar [model]="items">
+    <ng-template pTemplate="end">
+      {{email}}
+    </ng-template>
+  </p-menubar>
 </div>
+<div class="filtro">
+  <form [formGroup]="frmfiltro" (submit)="onBuscarRutina($event)">
+    <select formControlName="rutina">
+      @for (rutina of detalleR; track $index) {
+        <option [value]="rutina.rutina.id">{{rutina.rutina.rutina}}</option>
+      }
+    </select>
+    <button [disabled]="frmfiltro.invalid">Buscar por Rutina</button>
+  </form>
+</div>
+<div class="filtro">
+  <form [formGroup]="frmfiltroZC" (submit)="onBuscarRbyZC($event)">
+    <select formControlName="zonaCorporal">
+      @for (zc of detalleR; track $index) {
+        <option [value]="zc.dZonaCorporal.id">{{zc.dZonaCorporal.zonaCorporal}}</option>
+      }
+    </select>
+    <button [disabled]="frmfiltroZC.invalid">Buscar por Zona Corporal</button>
+  </form>
+
+</div>
+@if (drVisible) {
+  <div class="contenedor">
+    @for (dr of filteredDetalleRutina; track $index) {
+      <div class="detalle">
+        <p>Ejercicio: {{dr.ejercicio}}</p>
+        <p>Maquina: {{dr.maquina}}</p>
+        <p>Repeticiones: {{dr.repeticiones}}</p>
+        <p>Peso: {{dr.peso | unit: 'Kg'}}</p>
+      </div>
+    }
+  </div>
+}
+@if (drzcVisible) {
+  <div class="contenedor">
+    @for (dr of filteredDetalleRutina; track $index) {
+      <div class="detalle">
+        <p>Ejercicio: {{dr.ejercicio}}</p>
+        <p>Maquina: {{dr.maquina}}</p>
+        <p>Repeticiones: {{dr.repeticiones}}</p>
+        <p>Peso: {{dr.peso | unit: 'Kg'}}</p>
+      </div>
+    }
+  </div>
+}
+
+
+

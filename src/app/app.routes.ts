@@ -5,6 +5,7 @@ import { ProfileComponent } from './Domains/Profile/Component/profile/profile.co
 import { InicioComponent } from './Domains/Shared/Auth/Component/inicio/inicio.component';
 import { ZonaCorporalComponent } from './Domains/ZonaCorporal/Component/zona-corporal/zona-corporal.component';
 import { RutinaComponent } from './Domains/Rutinas/Component/rutina/rutina.component';
+import { DRComponent } from './Domains/DetalleRutina/Component/dr/dr.component';
 
 export const routes: Routes = [
   {
@@ -30,5 +31,9 @@ export const routes: Routes = [
   {
     path: 'listRutinas',
     component: RutinaComponent
+  },
+  {
+    path: 'detalleRutina',
+    component: DRComponent
   }
 ];
