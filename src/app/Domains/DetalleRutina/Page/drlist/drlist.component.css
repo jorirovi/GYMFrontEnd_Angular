@@ -2,9 +2,23 @@
   padding-left: 1rem;
   padding-right: 1rem;
 }
-@media(max-width: 300px){
+.contenedorForm{
+  display: grid;
+  grid-row-gap: 10px;
+  grid-template-rows: auto;
+}
+.items{
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-column-gap: 10px;
+}
+@media(min-width: 600px){
   .contenedor{
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+  .contenedorForm{
+    display: grid;
+    grid-row-gap: 30px;
   }
 }

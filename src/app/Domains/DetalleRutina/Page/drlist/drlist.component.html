@@ -21,6 +21,7 @@
       </tr>
     </ng-template>
   </p-table>
+  <button (click)="onHandleDialog()">Adicionar Detalle de Rutina</button>
 </div>
 
 <!--Formulario con un Dialog Box-->
@@ -33,13 +34,29 @@
   [draggable]="false"
   [resizable]="false">
     <span class="p-text-secondary block mb-5">Crear Detalle de Rutina</span>
-    <div class="contenedorForm">
+    <div class="contenedor">
       <form [formGroup]="frmDR" (submit)="onSubmitData($event)">
-        <select name="rutina" formControlName="idrutina">
-          @for (r of rutina; track $index) {
-            <option [value]="r.id">{{r.rutina}}</option>
-          }
-        </select>
+        <div class="contenedorForm">
+          <div class="items">
+            <label for="rutina">Rutina</label>
+            <select name="rutina" formControlName="idrutina">
+              @for (r of rutina; track $index) {
+                <option [value]="r.id">{{r.rutina}}</option>
+              }
+            </select>
+          </div>
+          <div class="items">
+            <label for="zc">Zona Corporal</label>
+            <select name="zc" formControlName="zonaCorporal">
+              @for (zonaC of zc; track $index) {
+                <option [value]="zonaC.numeroZC">{{zonaC.zonaCorporal}}</option>
+              }
+            </select>
+            </div>
+          <div>
+            <button [disabled]="!frmDR.valid">Guardar</button>
+          </div>
+        </div>
       </form>
     </div>
 </p-dialog>

@@ -73,6 +73,10 @@ export class ListZCComponent {
     {
       zc: 'Pantorrilla',
       numeroZC: 7
+    },
+    {
+      zc: 'Espalda',
+      numeroZC: 8
     }
   ];
   visibleMCZC: boolean = false;
